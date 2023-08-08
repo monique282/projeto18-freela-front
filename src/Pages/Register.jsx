@@ -138,7 +138,7 @@ const SingUpContainer = styled.section`
 
             button{
                 color: wheat;
-                width: 182px;
+                width: 769px;
                 height: 60px;
                 border-radius: 10px;
                 margin-top: 25px;
