@@ -143,9 +143,9 @@ const SingUpContainer = styled.section`
                 border-radius: 10px;
                 margin-top: 25px;
                 border-radius: 12px;
-                border: 1px solid rgba(120, 177, 89, 0.25);
+                border: 1px solid rgb(230, 68, 225);
                 background: #FFF;
-                box-shadow: 0px 4px 24px 0px rgba(120, 177, 89, 0.12);
+                box-shadow: 0px 4px 24px 0px rgb(230, 68, 225);
                 background-color: #d540e9;
             }
     }
