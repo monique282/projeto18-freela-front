@@ -11,7 +11,9 @@ export default function Registe() {
     const [nome, setNome] = useState('');
     const [disabled, setDisabled] = useState(false);
     const [email, setEmail] = useState('');
-    const [senha, setSenha] = useState('');
+    const [cpf, setCpf] = useState('');
+    const [telf, setTelef] = useState('');
+    const [senha, setSenha] = useState('');4
     const [confirmarSenha, setConfirmarSenha] = useState('');
     const navigate = useNavigate();
 
@@ -51,11 +53,12 @@ export default function Registe() {
             </Slogan>
             <SingUpContainer>
                 <form onSubmit={cadastro}>
-                    <Input placeholder="Nome" type="text" required value={nome} onChange={(e) => setNome(e.target.value)} disabled={disabled} data-test="name" />
-                    <Input placeholder="E-mail" type="email" required value={email} onChange={(e) => setEmail(e.target.value)} disabled={disabled} data-test="email" />
-                    <Input placeholder="CPF" type="email" required value={email} onChange={(e) => setEmail(e.target.value)} disabled={disabled} data-test="email" />
-                    <Input placeholder="Senha" type="password" autoComplete="new-password" required value={senha} onChange={(e) => setSenha(e.target.value)} disabled={disabled} data-test="password" />
-                    <Input placeholder="Confirme a senha" type="password" autoComplete="new-password" required value={confirmarSenha} onChange={(e) => setConfirmarSenha(e.target.value)} disabled={disabled} data-test="conf-password" />
+                    <Input placeholder="Nome" type="text" required value={nome} onChange={(e) => setNome(e.target.value)} disabled={disabled}  />
+                    <Input placeholder="E-mail" type="email" required value={email} onChange={(e) => setEmail(e.target.value)} disabled={disabled}  />
+                    <Input placeholder="CPF" type="text" required value={cpf} onChange={(e) => setCpf(e.target.value)} disabled={disabled} />
+                    <Input placeholder="Telefone de contato" type="text" required value={telf} onChange={(e) => setTelef(e.target.value)} disabled={disabled} />
+                    <Input placeholder="Senha" type="password" autoComplete="new-password" required value={senha} onChange={(e) => setSenha(e.target.value)} disabled={disabled}  />
+                    <Input placeholder="Confirme a senha" type="password" autoComplete="new-password" required value={confirmarSenha} onChange={(e) => setConfirmarSenha(e.target.value)} disabled={disabled} />
                     <button type='submit' disabled={disabled} data-test="sign-in-submit">
                         {disabled ? (
                             <ThreeDots width={32} height={21} border-radius={4.5} background-color="#A328D6" color="#FFFFFF" font-size={9} />
@@ -91,21 +94,21 @@ const Login = styled(Link)`
     text-decoration: none;
     color: #9C9C9C;
     font-family: Lexend Deca;
-    font-size: 14px;
+    font-size: 20px;
     font-style: normal;
     font-weight: 400;
     line-height: normal;
 `
 const Register = styled(Link)`
-    width: 90px;
-    height: 18px;
+    width: 200px;
+    height: 30px;
     display: flex;
     margin-left: 10px;
     margin-right: 100px;
     text-decoration: none;
     color: #d540e9;
     font-family: Lexend Deca;
-    font-size: 14px;
+    font-size: 20px;
     font-style: normal;
     font-weight: 400;
     line-height: normal;
@@ -125,7 +128,7 @@ const SingUpContainer = styled.section`
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 80px;
+  margin-top: 50px;
   //background-color: #6cc539;
     form{
         display: flex;
@@ -151,7 +154,7 @@ const SingUpContainer = styled.section`
 const Input = styled.input`
     width: 769px;
     height: 60px;
-    margin-top: 25px;
+    margin-top: 10px;
     border-radius: 12px;
     border: 1px solid rgba(120, 177, 89, 0.25);
     background: #FFF;
