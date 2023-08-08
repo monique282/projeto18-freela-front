@@ -37,6 +37,7 @@ export default function HomeDislocated() {
 const Total = styled.div`
     width: 100%;
     height: 100%;
+    background-color: #ffffff;
 `
 const RegisteLogin = styled.div`
     width: 100%;

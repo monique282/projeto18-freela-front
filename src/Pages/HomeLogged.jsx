@@ -107,6 +107,7 @@ export default function HomeLogged() {
 const Total = styled.div`
     width: 100%;
     height: 100%;
+    background-color: #ffffff;
 `
 const Above = styled.div`
     width: 100%;

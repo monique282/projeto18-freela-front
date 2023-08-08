@@ -34,6 +34,7 @@ export default function Home() {
 const Total = styled.div`
     width: 100%;
     height: 100%;
+    background-color: #ffffff;
 `
 const Above = styled.div`
     width: 100%;
@@ -130,6 +131,6 @@ const BoxRanking = styled.div`
     border-radius: 10px;
     border-radius: 24px 24px 0px 0px;
     border: 1px solid rgba(120, 177, 89, 0.25);
-    background: #FFF;
+   // background: #FFF;
     box-shadow: 0px 4px 24px 0px rgba(120, 177, 89, 0.12);
 `

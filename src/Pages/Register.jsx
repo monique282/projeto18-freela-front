@@ -1,6 +1,6 @@
 
 import styled from "styled-components";
-import slogan from "../assets/pants.svg";
+import slogan from "../assets/logo.png";
 import { Link, useNavigate } from "react-router-dom";
 import { useContext, useState } from "react";
 import axios from "axios";
@@ -49,10 +49,11 @@ export default function Registe() {
             <Slogan>
                 <img src={slogan} />
             </Slogan>
-            <SingInContainer>
+            <SingUpContainer>
                 <form onSubmit={cadastro}>
                     <Input placeholder="Nome" type="text" required value={nome} onChange={(e) => setNome(e.target.value)} disabled={disabled} data-test="name" />
                     <Input placeholder="E-mail" type="email" required value={email} onChange={(e) => setEmail(e.target.value)} disabled={disabled} data-test="email" />
+                    <Input placeholder="CPF" type="email" required value={email} onChange={(e) => setEmail(e.target.value)} disabled={disabled} data-test="email" />
                     <Input placeholder="Senha" type="password" autoComplete="new-password" required value={senha} onChange={(e) => setSenha(e.target.value)} disabled={disabled} data-test="password" />
                     <Input placeholder="Confirme a senha" type="password" autoComplete="new-password" required value={confirmarSenha} onChange={(e) => setConfirmarSenha(e.target.value)} disabled={disabled} data-test="conf-password" />
                     <button type='submit' disabled={disabled} data-test="sign-in-submit">
@@ -63,7 +64,7 @@ export default function Registe() {
                         )}
                     </button>
                 </form>
-            </SingInContainer>
+            </SingUpContainer>
 
         </Total>
     )
@@ -72,6 +73,7 @@ export default function Registe() {
 const Total = styled.div`
     width: 100%;
     height: 100%;
+    background-color: #ffffff;
 `
 const RegisteLogin = styled.div`
     width: 100%;
@@ -101,7 +103,7 @@ const Register = styled(Link)`
     margin-left: 10px;
     margin-right: 100px;
     text-decoration: none;
-    color: #5D9040;
+    color: #d540e9;
     font-family: Lexend Deca;
     font-size: 14px;
     font-style: normal;
@@ -116,13 +118,15 @@ const Slogan = styled.div`
     justify-content: center;
     align-items: center;
     margin-top: 17px;
+    //background-color: #da1515;
 `
-const SingInContainer = styled.section`
+const SingUpContainer = styled.section`
   height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 128px;
+  margin-top: 80px;
+  //background-color: #6cc539;
     form{
         display: flex;
         flex-direction: column;
@@ -139,7 +143,7 @@ const SingInContainer = styled.section`
                 border: 1px solid rgba(120, 177, 89, 0.25);
                 background: #FFF;
                 box-shadow: 0px 4px 24px 0px rgba(120, 177, 89, 0.12);
-                background-color: #5D9040;
+                background-color: #d540e9;
             }
     }
     
