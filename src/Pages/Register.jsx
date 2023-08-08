@@ -152,11 +152,11 @@ const SingUpContainer = styled.section`
     
 `
 const Input = styled.input`
-    width: 769px;
+     width: 769px;
     height: 60px;
     margin-top: 10px;
     border-radius: 12px;
-    border: 1px solid rgba(120, 177, 89, 0.25);
+    border: 1px solid rgba(216, 47, 232, 0.916);
     background: #FFF;
-    box-shadow: 0px 4px 24px 0px rgba(120, 177, 89, 0.12);
-`
+    box-shadow: 0px 4px 10px 0px rgba(216, 47, 232, 0.916);
+    `
