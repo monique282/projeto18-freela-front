@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import slogan from "../assets/pants.svg";
+import slogan from "../assets/logo.png";
 import { Link, useNavigate } from "react-router-dom";
 import { useContext, useState } from "react";
 import axios from "axios";
@@ -80,23 +80,23 @@ const Login = styled(Link)`
     display: flex;
     margin-left: 50px;
     text-decoration: none;
-    color: #5D9040;
+    color: #d540e9;
     font-family: Lexend Deca;
-    font-size: 14px;
+    font-size: 20px;
     font-style: normal;
     font-weight: 400;
     line-height: normal;
 `
 const Register = styled(Link)`
-    width: 90px;
-    height: 18px;
+    width: 200px;
+    height: 30px;
     display: flex;
     margin-left: 10px;
     margin-right: 100px;
     text-decoration: none;
     color: #9C9C9C;
     font-family: Lexend Deca;
-    font-size: 14px;
+    font-size: 20px;
     font-style: normal;
     font-weight: 400;
     line-height: normal;
@@ -115,7 +115,7 @@ const SingInContainer = styled.section`
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 128px;
+  margin-top: 50px;
     form{
         display: flex;
         flex-direction: column;
@@ -124,7 +124,7 @@ const SingInContainer = styled.section`
 
             button{
                 color: wheat;
-                width: 182px;
+                width: 769px;
                 height: 60px;
                 border-radius: 10px;
                 margin-top: 25px;
@@ -132,7 +132,7 @@ const SingInContainer = styled.section`
                 border: 1px solid rgba(120, 177, 89, 0.25);
                 background: #FFF;
                 box-shadow: 0px 4px 24px 0px rgba(120, 177, 89, 0.12);
-                background-color: #5D9040;
+                background-color: #d540e9;
             }
     }
     
@@ -140,7 +140,7 @@ const SingInContainer = styled.section`
 const Input = styled.input`
     width: 769px;
     height: 60px;
-    margin-top: 25px;
+    margin-top: 10px;
     border-radius: 12px;
     border: 1px solid rgba(120, 177, 89, 0.25);
     background: #FFF;
