@@ -4,33 +4,33 @@ import slogan from "../assets/logo.png";
 import { Link, useNavigate } from "react-router-dom";
 import { useContext, useState } from "react";
 import axios from "axios";
-//import { AuthContext } from "./Contex";
+import { AuthContext } from "./Contex";
 
 export default function Registe() {
 
-    const [nome, setNome] = useState('');
+    const [name, setName] = useState('');
     const [disabled, setDisabled] = useState(false);
     const [email, setEmail] = useState('');
     const [cpf, setCpf] = useState('');
-    const [telf, setTelef] = useState('');
-    const [senha, setSenha] = useState('');4
-    const [confirmarSenha, setConfirmarSenha] = useState('');
+    const [phone, setPhone] = useState('');
+    const [password, setPassword] = useState('');4
+    const [confirmPassword, setConfirmPassword] = useState('');
     const navigate = useNavigate();
 
 
-    function cadastro(e) {
+    function register(e) {
         e.preventDefault();
         // se as senhas estão iguais ou nao 
-        if (senha != confirmarSenha) {
+        if (password != confirmPassword) {
             return alert("Senhas informadas estão divergentes!");
         }
 
-        const url = `http://localhost:5000/cadastro`;
+        const url = `http://localhost:5000/signin`;
         // para quando tiver o deploy 
         // const = `${import.meta.env.VITE_API_URL}/cadastro`
 
         const dados = {
-            nome: nome,
+            name: name,
             email: email,
             senha: senha
         };
@@ -52,13 +52,13 @@ export default function Registe() {
                 <img src={slogan} />
             </Slogan>
             <SingUpContainer>
-                <form onSubmit={cadastro}>
-                    <Input placeholder="Nome" type="text" required value={nome} onChange={(e) => setNome(e.target.value)} disabled={disabled}  />
+                <form onSubmit={register}>
+                    <Input placeholder="Name" type="text" required value={name} onChange={(e) => setName(e.target.value)} disabled={disabled}  />
                     <Input placeholder="E-mail" type="email" required value={email} onChange={(e) => setEmail(e.target.value)} disabled={disabled}  />
                     <Input placeholder="CPF" type="text" required value={cpf} onChange={(e) => setCpf(e.target.value)} disabled={disabled} />
-                    <Input placeholder="Telefone de contato" type="text" required value={telf} onChange={(e) => setTelef(e.target.value)} disabled={disabled} />
-                    <Input placeholder="Senha" type="password" autoComplete="new-password" required value={senha} onChange={(e) => setSenha(e.target.value)} disabled={disabled}  />
-                    <Input placeholder="Confirme a senha" type="password" autoComplete="new-password" required value={confirmarSenha} onChange={(e) => setConfirmarSenha(e.target.value)} disabled={disabled} />
+                    <Input placeholder="Telefone de contato" type="text" required value={phone} onChange={(e) => setPhone(e.target.value)} disabled={disabled} />
+                    <Input placeholder="Password" type="password" autoComplete="new-password" required value={password} onChange={(e) => setPassword(e.target.value)} disabled={disabled}  />
+                    <Input placeholder="confirm password" type="password" autoComplete="new-password" required value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} disabled={disabled} />
                     <button type='submit' disabled={disabled} data-test="sign-in-submit">
                         {disabled ? (
                             <ThreeDots width={32} height={21} border-radius={4.5} background-color="#A328D6" color="#FFFFFF" font-size={9} />
