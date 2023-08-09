@@ -10,9 +10,9 @@ export default function AuthProvider({ children }) {
     const localiza = useLocation();
     // usar um 
     useEffect(() => {
-        if (lsUser === null && localiza.pathname !== "/cadastro") {
+        if (lsUser === null && localiza.pathname !== "/signup") {
             navigate("/");
-        } else if (lsUser && localiza.pathname !== "/cadastro") {
+        } else if (lsUser && localiza.pathname !== "/singup") {
             navigate("/home");
         }
     }, [])

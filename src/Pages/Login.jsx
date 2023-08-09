@@ -20,7 +20,8 @@ export default function Home() {
         // dados que vão pro servidor
         const data = {
             email: email,
-            password: password
+            password: password, 
+            
         }
 
         const url = `${import.meta.env.VITE_API_URL}/signin`
@@ -28,12 +29,12 @@ export default function Home() {
         setDisabled(true);
         promise.then(response => {
             localStorage.setItem("user", JSON.stringify({ email, token: response.data.token, name: response.data.name }));
-            setAuth({ email, token: response.data.token, name: response.data.name })
-            navigate("/L");
+           // setAuth({ email, token: response.data.token, name: response.data.name });
+            navigate("/signup");
 
         });
-        promise.catch(resposta => {
-            alert(resposta.response.data.message);
+        promise.catch(err => {
+            alert(err.response.data);
             setDisabled(false);
         });
     }
