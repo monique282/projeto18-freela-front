@@ -2,29 +2,33 @@ import styled from "styled-components";
 import slogan from "../assets/logo.png";
 import { Link, useNavigate } from "react-router-dom";
 import { useContext, useState } from "react";
+import { ThreeDots } from "react-loader-spinner";
 import axios from "axios";
-//import { AuthContext } from "./Contex";
+import { AuthContext } from "./Contex";
 
 export default function Home() {
 
-    //const { setAuth } = useContext(AuthContext);
+    const { setAuth } = useContext(AuthContext);
     const [email, setEmail] = useState('');
-    const [senha, setSenha] = useState('');
+    const [password, setPassword] = useState('');
     const [disabled, setDisabled] = useState(false);
     const navigate = useNavigate();
 
     function login(e) {
         e.preventDefault();
-        const dados = {
+        
+        // dados que vão pro servidor
+        const data = {
             email: email,
-            senha: senha
+            password: password
         }
-        const url = `${import.meta.env.VITE_API_URL}/`
-        const promise = axios.post(url, dados);
+
+        const url = `${import.meta.env.VITE_API_URL}/signin`
+        const promise = axios.post(url, data);
         setDisabled(true);
-        promise.then(resposta => {
-            localStorage.setItem("user", JSON.stringify({ email, token: resposta.data.token, nome: resposta.data.nome }));
-            setAuth({ email, token: resposta.data.token, nome: resposta.data.nome })
+        promise.then(response => {
+            localStorage.setItem("user", JSON.stringify({ email, token: response.data.token, name: response.data.name }));
+            setAuth({ email, token: response.data.token, name: response.data.name })
             navigate("/L");
 
         });
@@ -46,10 +50,10 @@ export default function Home() {
             <SingInContainer>
                 <form onSubmit={login}>
                     <Input placeholder="E-mail" type="email" required value={email} onChange={(e) => setEmail(e.target.value)} disabled={disabled} />
-                    <Input placeholder="Senha" type="password" autoComplete="new-password" required value={senha} onChange={(e) => setSenha(e.target.value)} disabled={disabled} />
+                    <Input placeholder="Senha" type="password" autoComplete="new-password" required value={password} onChange={(e) => setPassword(e.target.value)} disabled={disabled} />
                     <button type='submit' disabled={disabled} data-test="sign-in-submit">
                         {disabled ? (
-                            <ThreeDots width={32} height={21} border-radius={4.5} background-color="#A328D6" color="#FFFFFF" font-size={9} />
+                            <ThreeDots width={32} height={21} border-radius={4.5} background-color="#d540e9" color="#FFFFFF" font-size={9} />
                         ) : (
                             <p>Entrar</p>
                         )}

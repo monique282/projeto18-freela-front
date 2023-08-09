@@ -4,6 +4,7 @@ import slogan from "../assets/logo.png";
 import { Link, useNavigate } from "react-router-dom";
 import { useContext, useState } from "react";
 import axios from "axios";
+import { ThreeDots } from "react-loader-spinner";
 import { AuthContext } from "./Contex";
 
 export default function Registe() {
@@ -13,34 +14,42 @@ export default function Registe() {
     const [email, setEmail] = useState('');
     const [cpf, setCpf] = useState('');
     const [phone, setPhone] = useState('');
-    const [password, setPassword] = useState('');4
+    const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
     const navigate = useNavigate();
 
 
     function register(e) {
         e.preventDefault();
+
         // se as senhas estão iguais ou nao 
-        if (password != confirmPassword) {
+        if (password !== confirmPassword) {
             return alert("Senhas informadas estão divergentes!");
-        }
+        };
 
-        const url = `http://localhost:5000/signin`;
-        // para quando tiver o deploy 
-        // const = `${import.meta.env.VITE_API_URL}/cadastro`
+        const url = `http://localhost:5000/signup`;
+        //para quando tiver o deploy 
+        // const url = `${import.meta.env.VITE_API_URL}/signup`
 
-        const dados = {
+        // dados a ser enviados para o back
+        console.log(password);
+        const data = {
             name: name,
             email: email,
-            senha: senha
+            cpf: cpf,
+            phone: phone,
+            password: password,
+            confirmPassword: confirmPassword
         };
-        const promise = axios.post(url, dados)
+
+        const promise = axios.post(url, data)
         setDisabled(true);
-        promise.then(resposta => navigate('/signin'));
-        promise.catch(resposta => {
-            alert(resposta.response.data.message);
+        promise.then(() => navigate('/signin'));
+        promise.catch(response => {
+            alert(response.response.data);
             setDisabled(false);
-        })
+        });
+
     }
     return (
         <Total>
@@ -53,15 +62,15 @@ export default function Registe() {
             </Slogan>
             <SingUpContainer>
                 <form onSubmit={register}>
-                    <Input placeholder="Name" type="text" required value={name} onChange={(e) => setName(e.target.value)} disabled={disabled}  />
-                    <Input placeholder="E-mail" type="email" required value={email} onChange={(e) => setEmail(e.target.value)} disabled={disabled}  />
+                    <Input placeholder="Name" type="text" required value={name} onChange={(e) => setName(e.target.value)} disabled={disabled} />
+                    <Input placeholder="E-mail" type="email" required value={email} onChange={(e) => setEmail(e.target.value)} disabled={disabled} />
                     <Input placeholder="CPF" type="text" required value={cpf} onChange={(e) => setCpf(e.target.value)} disabled={disabled} />
                     <Input placeholder="Telefone de contato" type="text" required value={phone} onChange={(e) => setPhone(e.target.value)} disabled={disabled} />
-                    <Input placeholder="Password" type="password" autoComplete="new-password" required value={password} onChange={(e) => setPassword(e.target.value)} disabled={disabled}  />
-                    <Input placeholder="confirm password" type="password" autoComplete="new-password" required value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} disabled={disabled} />
-                    <button type='submit' disabled={disabled} data-test="sign-in-submit">
+                    <Input placeholder="Password" type="password" autoComplete="new-password" required value={password} onChange={(e) => setPassword(e.target.value)} disabled={disabled} />
+                    <Input placeholder="Confirm password" type="password" autoComplete="new-password" required value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} disabled={disabled} />
+                    <button type="submit" disabled={disabled}>
                         {disabled ? (
-                            <ThreeDots width={32} height={21} border-radius={4.5} background-color="#A328D6" color="#FFFFFF" font-size={9} />
+                            <ThreeDots width={32} height={21} border-radius={4.5} background-color="#d540e9" color="#FFFFFF" font-size={9} />
                         ) : (
                             <p>Criar conta</p>
                         )}
@@ -71,7 +80,7 @@ export default function Registe() {
 
         </Total>
     )
-}
+};
 
 const Total = styled.div`
     width: 100%;
@@ -121,7 +130,6 @@ const Slogan = styled.div`
     justify-content: center;
     align-items: center;
     margin-top: 17px;
-    //background-color: #da1515;
 `
 const SingUpContainer = styled.section`
   height: 100vh;
@@ -129,7 +137,6 @@ const SingUpContainer = styled.section`
   flex-direction: column;
   align-items: center;
   margin-top: 50px;
-  //background-color: #6cc539;
     form{
         display: flex;
         flex-direction: column;
@@ -148,8 +155,7 @@ const SingUpContainer = styled.section`
                 box-shadow: 0px 4px 24px 0px rgb(230, 68, 225);
                 background-color: #d540e9;
             }
-    }
-    
+    } 
 `
 const Input = styled.input`
      width: 769px;
@@ -159,4 +165,4 @@ const Input = styled.input`
     border: 1px solid rgba(216, 47, 232, 0.916);
     background: #FFF;
     box-shadow: 0px 4px 10px 0px rgba(216, 47, 232, 0.916);
-    `
+`

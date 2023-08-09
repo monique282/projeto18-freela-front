@@ -40,7 +40,6 @@ export default function HomeLogged() {
                 <Welcome>Seja bem-vindo(a), Pessoa!</Welcome>
                 <RomeRankExit>
                     <Homer to={'/'} >Home</Homer>
-                    <Rank to={'/ranking'}>Ranking</Rank>
                     <Exit>Sair</Exit>
                 </RomeRankExit>
             </Above>
