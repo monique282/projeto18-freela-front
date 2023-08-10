@@ -69,7 +69,7 @@ export default function Home() {
 const Total = styled.div`
     width: 100%;
     height: 100%;
-    background-color: #d540e9;
+    /* background-color: #d540e9; */
 `
 const RegisteLogin = styled.div`
     width: 100%;

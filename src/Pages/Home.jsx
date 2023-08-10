@@ -38,12 +38,12 @@ export default function HomeLogged() {
                 </SaleExit>
             </Above>
             <Categories>
-                <Affairs></Affairs>
-                <Adventure></Adventure>
-                <Bibliography></Bibliography>
-                <Fiction></Fiction>
-                <Thriller></Thriller>
-                <Others></Others>
+                <Affairs>Affairs</Affairs>
+                <Adventure>Adventure</Adventure>
+                <Bibliography>Bibliography</Bibliography>
+                <ScienceFiction> ScienceFiction </ScienceFiction>
+                <Thriller>Thriller</Thriller>
+                <Others>Others</Others>
             </Categories>
             <SingInContainer>
                 <TopForm >
@@ -105,26 +105,31 @@ export default function HomeLogged() {
 const Total = styled.div`
     width: 100%;
     height: 100%;
-    background-color: #de95e8;
+    //background-color: #bd4470;
+    background: linear-gradient(to bottom, #bd4470, #5dc1a3);
 `
 const Above = styled.div`
     width: 100%;
     height: 100%;
     margin-top: 20px;
     display: flex;
+    background-color: #7a2e4a;
+   // background: linear-gradient(to right, #ed6b9b, #85f6d4);
+    
 `
 const SaleExit = styled.div`
     width: 100%;
-    height: 18px;
+    height: 50px;
     display: flex;
     justify-content: flex-end;
     text-decoration: none;
+    font-size: 20px;
 `
 const Welcome = styled.div`
     width: 100%;
-    color: black;
+    color: #ffffff;
     font-family: Lexend Deca;
-    font-size: 14px;
+    font-size: 16px;
     font-style: normal;
     font-weight: 400;
     line-height: normal;
@@ -132,38 +137,72 @@ const Welcome = styled.div`
     margin-left: 100px;
     text-decoration: none;
     justify-content: flex-start;
+    margin-top: 17px;
 `
 const Sale = styled(Link)`
-    width: 120px;
-    height: 18px;
+    width: 150px;
+    height: 22px;
     display: flex;
-    margin-right: 10px;
+    margin-right: 60px;
     text-decoration: none;
-    color: black;
+    color: #ffffff;
     font-family: Lexend Deca;
-    font-size: 14px;
+    font-size: 16px;
     font-style: normal;
     font-weight: 400;
     line-height: normal;
+    margin-top: 17px;
 `
 const Exit = styled(Link)`
     width: 90px;
-    height: 18px;
+    height: 22px;
     display: flex;
     margin-left: 10px;
-    margin-right: 100px;
+    margin-right: 0px;
     text-decoration: none;
-    color: black;
+    color: #ffffff;
     font-family: Lexend Deca;
-    font-size: 14px;
+    font-size: 16px;
     font-style: normal;
     font-weight: 400;
     line-height: normal;
+    margin-top: 17px;
 `
 const Categories = styled.div`
      width: 100%;
      display: flex;
+     margin-top: 30px;
+    // background-color: #e92121;
+     justify-content: space-between;
+     color: black;
 `
+const Affairs = styled(Link)`
+    margin-left: 20px;
+    color: black;
+
+`
+const Adventure = styled(Link)`
+    color: black;
+
+`
+const Bibliography = styled(Link)`
+    color: black;
+
+`
+const ScienceFiction= styled(Link)`
+    color: black;
+
+`
+const Thriller = styled(Link)`
+    color: black;
+
+`
+const Others = styled(Link)`
+    margin-right: 20px;
+    color: black;
+
+`
+
 const SingInContainer = styled.section`
   height: 100vh;
   display: flex;
