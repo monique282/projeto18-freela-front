@@ -40,12 +40,12 @@ export default function Home() {
                 </SaleExit>
             </Above>
             <Categories>
-                <Affairs>Affairs</Affairs>
-                <Adventure>Adventure</Adventure>
-                <Bibliography>Bibliography</Bibliography>
-                <ScienceFiction> ScienceFiction </ScienceFiction>
-                <Thriller>Thriller</Thriller>
-                <Others>Others</Others>
+                <Affairs>Romances</Affairs>
+                <Adventure>Aventura</Adventure>
+                <Bibliography>Bibliografia</Bibliography>
+                <ScienceFiction> Ficção Científica </ScienceFiction>
+                <Thriller>Suspense</Thriller>
+                <Others>Outros</Others>
             </Categories>
             <SingInContainer>
                 <Unit>
