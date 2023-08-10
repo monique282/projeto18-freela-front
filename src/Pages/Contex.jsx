@@ -4,8 +4,9 @@ import { useLocation, useNavigate } from "react-router-dom";
 export const AuthContext = createContext({})
 
 export default function AuthProvider({ children }) {
-    const lsUser = JSON.parse(localStorage.getItem("user"));
-    const [auth, setAuth] = useState(lsUser);
+    const lsToken = localStorage.getItem("token"); 
+    const [token, setToken] = useState(lsToken);
+    const [name, setName] = useState('');
     const navigate = useNavigate();
     const localiza = useLocation();
 
@@ -14,13 +15,14 @@ export default function AuthProvider({ children }) {
         if (lsUser === null && localiza.pathname !== "/signup") {
             navigate("/");
         } else if (lsUser && localiza.pathname !== "/singup") {
-            navigate("/home");
+            navigate("/");
         }
     }, []);
 
     return (
         <AuthContext.Provider value={{
-            auth, setAuth
+            name, setName,
+            token, setToken,
         }}>
             {children}
         </AuthContext.Provider>

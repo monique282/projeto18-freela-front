@@ -1,37 +1,36 @@
 import styled from "styled-components";
-import slogan from "../assets/logo.png";
-import bin from "../assets/bin.svg";
 import { Link, useNavigate } from "react-router-dom";
 import { useContext, useState } from "react";
 import axios from "axios";
-//import { AuthContext } from "./Contex";
+import { AuthContext } from "./Contex";
 
 export default function Home() {
 
     //const { setAuth } = useContext(AuthContext);
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const [disabled, setDisabled] = useState(false);
+    const { name, token } = useContext(AuthContext);
     const navigate = useNavigate();
 
-    function login(e) {
-        e.preventDefault();
-
-        const url = `${import.meta.env.VITE_API_URL}/`
-        const promise = axios.post(url);
-        setDisabled(true);
+    useEffect(() => {
+        const url = `${import.meta.env.VITE_API_URL}/posts`
+        const confi = {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        };
+        const promise = axios.get(url, confi);
         promise.then(resposta => {
-            console.log(resposta)
-        });
-        promise.catch(resposta => {
-            alert(resposta.response.data.message);
-            setDisabled(false);
-        });
-    }
+          console.log(resposta)
+    
+        })
+          .catch(resposta => {
+            alert(resposta.response.data);
+          });
+      }, []);
+
     return (
         <Total>
             <Above>
-                <Welcome>Seja bem-vindo(a), Pessoa!</Welcome>
+                <Welcome>Seja bem-vindo(a), {name}!</Welcome>
                 <SaleExit>
                     <Sale to={'/'} >Venda seu produro</Sale>
                     <Login to={'/signin'} >Entrar</Login>
