@@ -165,4 +165,5 @@ const Input = styled.input`
     border: 1px solid rgba(216, 47, 232, 0.916);
     background: #FFF;
     box-shadow: 0px 4px 10px 0px rgba(216, 47, 232, 0.916);
+    outline: none;
 `

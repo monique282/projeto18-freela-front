@@ -157,7 +157,6 @@ const Others = styled(Link)`
     color: black;
 
 `
-
 const SingInContainer = styled.section`
     height: 100vh;
     display: flex;
