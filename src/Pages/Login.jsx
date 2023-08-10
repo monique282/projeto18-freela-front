@@ -30,7 +30,7 @@ export default function Home() {
         promise.then(response => {
             localStorage.setItem("user", JSON.stringify({ email, token: response.data.token, name: response.data.name }));
             // setAuth({ email, token: response.data.token, name: response.data.name });
-            navigate("/L");
+            navigate("/");
 
         });
         promise.catch(err => {

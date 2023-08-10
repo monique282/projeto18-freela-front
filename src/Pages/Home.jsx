@@ -34,6 +34,8 @@ export default function Home() {
                 <Welcome>Seja bem-vindo(a), Pessoa!</Welcome>
                 <SaleExit>
                     <Sale to={'/'} >Venda seu produro</Sale>
+                    <Login to={'/signin'} >Entrar</Login>
+                    <Register to={'/signup'}>Cadastra-se</Register>
                     <Exit>Sair</Exit>
                 </SaleExit>
             </Above>
@@ -94,11 +96,40 @@ const Welcome = styled.div`
     justify-content: flex-start;
     margin-top: 17px;
 `
+const Login = styled(Link)`
+    width: 69px;
+    height: 18px;
+    display: flex;
+    margin-left: 10px;
+    text-decoration: none;
+    color: #ffffff;
+    font-family: Lexend Deca;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    margin-top: 17px;
+`
+const Register = styled(Link)`
+    width: 89px;
+    height: 30px;
+    display: flex;
+    margin-left: 10px;
+    margin-right: 10px;
+    text-decoration: none;
+    color: #ffffff;
+    font-family: Lexend Deca;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    margin-top: 17px;
+`
 const Sale = styled(Link)`
     width: 150px;
     height: 22px;
     display: flex;
-    margin-right: 60px;
+    margin-right: 13px;
     text-decoration: none;
     color: #ffffff;
     font-family: Lexend Deca;
