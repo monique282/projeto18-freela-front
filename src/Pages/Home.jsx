@@ -6,7 +6,7 @@ import { useContext, useState } from "react";
 import axios from "axios";
 //import { AuthContext } from "./Contex";
 
-export default function HomeLogged() {
+export default function Home() {
 
     //const { setAuth } = useContext(AuthContext);
     const [email, setEmail] = useState('');
