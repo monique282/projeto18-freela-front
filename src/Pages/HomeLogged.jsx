@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import slogan from "../assets/pants.svg";
+import slogan from "../assets/logo.png";
 import bin from "../assets/bin.svg";
 import { Link, useNavigate } from "react-router-dom";
 import { useContext, useState } from "react";
@@ -10,24 +10,18 @@ export default function HomeLogged() {
 
     //const { setAuth } = useContext(AuthContext);
     const [email, setEmail] = useState('');
-    const [senha, setSenha] = useState('');
+    const [password, setPassword] = useState('');
     const [disabled, setDisabled] = useState(false);
     const navigate = useNavigate();
 
     function login(e) {
         e.preventDefault();
-        const dados = {
-            email: email,
-            senha: senha
-        }
+
         const url = `${import.meta.env.VITE_API_URL}/`
-        const promise = axios.post(url, dados);
+        const promise = axios.post(url);
         setDisabled(true);
         promise.then(resposta => {
-            localStorage.setItem("user", JSON.stringify({ email, token: resposta.data.token, nome: resposta.data.nome }));
-            setAuth({ email, token: resposta.data.token, nome: resposta.data.nome })
-            navigate("/L");
-
+            console.log(resposta)
         });
         promise.catch(resposta => {
             alert(resposta.response.data.message);
@@ -43,9 +37,6 @@ export default function HomeLogged() {
                     <Exit>Sair</Exit>
                 </RomeRankExit>
             </Above>
-            <Slogan>
-                <img src={slogan} />
-            </Slogan>
             <SingInContainer>
                 <TopForm >
                     <Input placeholder="Links que cabem no bolso" type="link" required value={email} onChange={(e) => setEmail(e.target.value)} disabled={disabled} />
@@ -96,7 +87,7 @@ export default function HomeLogged() {
             </SingInContainer>
             <Box>
                 <BoxRanking>
-                    Pessoas do ranl
+                    Pessoas do rank
                 </BoxRanking>
             </Box>
         </Total>
@@ -106,12 +97,13 @@ export default function HomeLogged() {
 const Total = styled.div`
     width: 100%;
     height: 100%;
-    background-color: #ffffff;
+    background-color: #de95e8;
 `
 const Above = styled.div`
     width: 100%;
     height: 100%;
     margin-top: 60px;
+    display: flex;
 `
 const RomeRankExit = styled.div`
     width: 100%;
@@ -121,7 +113,8 @@ const RomeRankExit = styled.div`
     text-decoration: none;
 `
 const Welcome = styled.div`
-    color: #5D9040;
+    width: 100%;
+    color: black;
     font-family: Lexend Deca;
     font-size: 14px;
     font-style: normal;
@@ -138,7 +131,7 @@ const Homer = styled(Link)`
     display: flex;
     margin-right: 10px;
     text-decoration: none;
-    color: #9C9C9C;
+    color: black;
     font-family: Lexend Deca;
     font-size: 14px;
     font-style: normal;
@@ -165,20 +158,12 @@ const Exit = styled(Link)`
     margin-left: 10px;
     margin-right: 100px;
     text-decoration: none;
-    color: #9C9C9C;
+    color: black;
     font-family: Lexend Deca;
     font-size: 14px;
     font-style: normal;
     font-weight: 400;
     line-height: normal;
-`
-const Slogan = styled.div`
-    width: 100%;
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 17px;
 `
 const SingInContainer = styled.section`
   height: 100vh;

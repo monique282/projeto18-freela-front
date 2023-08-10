@@ -8,6 +8,7 @@ export default function AuthProvider({ children }) {
     const [auth, setAuth] = useState(lsUser);
     const navigate = useNavigate();
     const localiza = useLocation();
+
     // usar um 
     useEffect(() => {
         if (lsUser === null && localiza.pathname !== "/signup") {
@@ -15,8 +16,7 @@ export default function AuthProvider({ children }) {
         } else if (lsUser && localiza.pathname !== "/singup") {
             navigate("/home");
         }
-    }, [])
-
+    }, []);
 
     return (
         <AuthContext.Provider value={{
@@ -25,5 +25,5 @@ export default function AuthProvider({ children }) {
             {children}
         </AuthContext.Provider>
     )
-}
+};
 

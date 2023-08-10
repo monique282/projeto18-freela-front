@@ -46,7 +46,7 @@ export default function Registe() {
         setDisabled(true);
         promise.then(() => navigate('/signin'));
         promise.catch(response => {
-            alert(response.response.data);
+            alert(response.response.data.message);
             setDisabled(false);
         });
 

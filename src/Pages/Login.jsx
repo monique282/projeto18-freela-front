@@ -16,12 +16,12 @@ export default function Home() {
 
     function login(e) {
         e.preventDefault();
-        
+
         // dados que vão pro servidor
         const data = {
             email: email,
-            password: password, 
-            
+            password: password,
+
         }
 
         const url = `${import.meta.env.VITE_API_URL}/signin`
@@ -29,8 +29,8 @@ export default function Home() {
         setDisabled(true);
         promise.then(response => {
             localStorage.setItem("user", JSON.stringify({ email, token: response.data.token, name: response.data.name }));
-           // setAuth({ email, token: response.data.token, name: response.data.name });
-            navigate("/signup");
+            // setAuth({ email, token: response.data.token, name: response.data.name });
+            navigate("/L");
 
         });
         promise.catch(err => {
@@ -69,7 +69,7 @@ export default function Home() {
 const Total = styled.div`
     width: 100%;
     height: 100%;
-    background-color: #ffffff;
+    background-color: #d540e9;
 `
 const RegisteLogin = styled.div`
     width: 100%;
