@@ -47,25 +47,15 @@ export default function HomeLogged() {
             </Categories>
             <SingInContainer>
                 <Unit>
-                    <img src="" alt="" />
-                    <Title></Title>
-                    <Altor></Altor>
-                    <Price></Price>
+                    <img src="https://www.google.com/url?sa=i&url=https%3A%2F%2Fjamboeditora.com.br%2Fproduto%2Fordem-paranormal-rpg%2F&psig=AOvVaw0t-0Vy0No6JGkjyodkTILt&ust=1691783168051000&source=images&cd=vfe&opi=89978449&ved=0CBEQjRxqFwoTCLiolcjt0oADFQAAAAAdAAAAABAE" alt="" />
+                    <Title>Ordem Paranormal</Title>
+                    <Category>Ficção</Category>
+                    <Price>R$ 24,99</Price>
                 </Unit>
             </SingInContainer>
-            <Box>
-                <BoxRanking>
-                    Pessoas do rank
-                </BoxRanking>
-            </Box>
         </Total>
     )
 };
-
-const Unit = styled.div`
-     width: 100%;
-    height: 100%;
-`
 
 const Total = styled.div`
     width: 100%;
@@ -169,65 +159,71 @@ const Others = styled(Link)`
 `
 
 const SingInContainer = styled.section`
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-top: 128px;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    //background-color: red;
 `
-const TopForm = styled.form`
+const Unit = styled.div`
+    width: 250px;
+    height: 400px;
+    background-color: wheat;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 30px;
+    img{
+        width: 230px;
+        height: 470px;
+        border-radius: 20px;
+        background-color: black;
+        margin-top: 7px;
+    }
+`
+const Title = styled.div`
+    width: 100%;
+    height: 20px;
+    font-family: Lexend Deca;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    color: #bd4470;
     display: flex;
     justify-content: center;
     align-items: center;
-
-    button{
-                color: wheat;
-                width: 182px;
-                height: 60px;
-                border-radius: 10px;
-                margin-top: 25px;
-                border-radius: 12px;
-                border: 1px solid rgba(120, 177, 89, 0.25);
-                box-shadow: 0px 4px 24px 0px rgba(120, 177, 89, 0.12);
-                background-color: #5D9040;
-                margin-left: 20px;
-            }
+    margin-top: 7px;
 `
-const Bottom = styled.div`
+const Category = styled.div`
+    width: 100%;
+    height: 20px;
+    font-family: Lexend Deca;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    color: #bd4470;
     display: flex;
     justify-content: center;
     align-items: center;
-
-        div{
-            width: 769px;
-            height: 60px;
-            margin-top: 25px;
-            border-radius: 12px;
-            border: 1px solid rgba(120, 177, 89, 0.25);
-            box-shadow: 0px 4px 24px 0px rgba(120, 177, 89, 0.12);
-            background-color: #80CC74;   
-        }
-        button{
-            color: wheat;
-            width: 130px;
-            height: 60px;
-            border-radius: 10px;
-            margin-top: 25px;
-            border-radius: 12px;
-            border: 1px solid rgba(120, 177, 89, 0.25);
-            background: #FFF;
-            box-shadow: 0px 4px 24px 0px rgba(120, 177, 89, 0.12);
-            margin-left: 20px;
-        }
 `
-const Input = styled.input`
-    width: 715px;
-    height: 60px;
-    margin-top: 25px;
-    border-radius: 12px;
-    border: 1px solid rgba(120, 177, 89, 0.25);
-    background: #FFF;
-    box-shadow: 0px 4px 24px 0px rgba(120, 177, 89, 0.12);
+const Price = styled.div`
+    width: 100%;
+    height: 20px;
+    font-family: Lexend Deca;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    color: black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 7px;
+    margin-bottom: 7px;
 `
 const Box = styled.div`
     display: flex;
