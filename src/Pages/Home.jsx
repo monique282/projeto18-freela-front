@@ -32,11 +32,19 @@ export default function HomeLogged() {
         <Total>
             <Above>
                 <Welcome>Seja bem-vindo(a), Pessoa!</Welcome>
-                <RomeRankExit>
-                    <Homer to={'/'} >Home</Homer>
+                <SaleExit>
+                    <Sale to={'/'} >Venda seu produro</Sale>
                     <Exit>Sair</Exit>
-                </RomeRankExit>
+                </SaleExit>
             </Above>
+            <Categories>
+                <Affairs></Affairs>
+                <Adventure></Adventure>
+                <Bibliography></Bibliography>
+                <Fiction></Fiction>
+                <Thriller></Thriller>
+                <Others></Others>
+            </Categories>
             <SingInContainer>
                 <TopForm >
                     <Input placeholder="Links que cabem no bolso" type="link" required value={email} onChange={(e) => setEmail(e.target.value)} disabled={disabled} />
@@ -102,10 +110,10 @@ const Total = styled.div`
 const Above = styled.div`
     width: 100%;
     height: 100%;
-    margin-top: 60px;
+    margin-top: 20px;
     display: flex;
 `
-const RomeRankExit = styled.div`
+const SaleExit = styled.div`
     width: 100%;
     height: 18px;
     display: flex;
@@ -125,26 +133,13 @@ const Welcome = styled.div`
     text-decoration: none;
     justify-content: flex-start;
 `
-const Homer = styled(Link)`
-    width: 80px;
+const Sale = styled(Link)`
+    width: 120px;
     height: 18px;
     display: flex;
     margin-right: 10px;
     text-decoration: none;
     color: black;
-    font-family: Lexend Deca;
-    font-size: 14px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: normal;
-`
-const Rank = styled(Link)`
-    width: 90px;
-    height: 18px;
-    display: flex;
-    margin-left: 10px;
-    text-decoration: none;
-    color: #9C9C9C;
     font-family: Lexend Deca;
     font-size: 14px;
     font-style: normal;
@@ -164,6 +159,10 @@ const Exit = styled(Link)`
     font-style: normal;
     font-weight: 400;
     line-height: normal;
+`
+const Categories = styled.div`
+     width: 100%;
+     display: flex;
 `
 const SingInContainer = styled.section`
   height: 100vh;

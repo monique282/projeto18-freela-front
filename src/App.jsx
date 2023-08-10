@@ -3,7 +3,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Login from "./Pages/Login.jsx"
 import Register from "./Pages/Register.jsx";
 import HomeDislocated from "./Pages/HomeDislocated.jsx";
-import HomeLogeed from "./Pages/HomeLogged.jsx";
+import HomeLogeed from "./Pages/Home.jsx";
 
 
 export default function App() {
