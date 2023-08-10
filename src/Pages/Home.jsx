@@ -46,52 +46,12 @@ export default function HomeLogged() {
                 <Others>Others</Others>
             </Categories>
             <SingInContainer>
-                <TopForm >
-                    <Input placeholder="Links que cabem no bolso" type="link" required value={email} onChange={(e) => setEmail(e.target.value)} disabled={disabled} />
-                    <button type='submit' disabled={disabled} data-test="sign-in-submit">
-                        {disabled ? (
-                            <ThreeDots width={32} height={21} border-radius={4.5} background-color="#A328D6" color="#FFFFFF" font-size={9} />
-                        ) : (
-                            <p>Encurtar link</p>
-                        )}
-                    </button>
-                </TopForm>
-                <Bottom>
-                    <div>
-
-                    </div>
-                    <button type='submit' disabled={disabled} data-test="sign-in-submit">
-                        {disabled ? (
-                            <ThreeDots width={32} height={21} border-radius={4.5} background-color="#A328D6" color="#FFFFFF" font-size={9} />
-                        ) : (
-                            <img src={bin}></img>
-                        )}
-                    </button>
-                </Bottom>
-                <Bottom>
-                    <div>
-
-                    </div>
-                    <button type='submit' disabled={disabled} data-test="sign-in-submit">
-                        {disabled ? (
-                            <ThreeDots width={32} height={21} border-radius={4.5} background-color="#A328D6" color="#FFFFFF" font-size={9} />
-                        ) : (
-                            <img src={bin}></img>
-                        )}
-                    </button>
-                </Bottom>
-                <Bottom>
-                    <div>
-
-                    </div>
-                    <button type='submit' disabled={disabled} data-test="sign-in-submit">
-                        {disabled ? (
-                            <ThreeDots width={32} height={21} border-radius={4.5} background-color="#A328D6" color="#FFFFFF" font-size={9} />
-                        ) : (
-                            <img src={bin}></img>
-                        )}
-                    </button>
-                </Bottom>
+                <Unit>
+                    <img src="" alt="" />
+                    <Title></Title>
+                    <Altor></Altor>
+                    <Price></Price>
+                </Unit>
             </SingInContainer>
             <Box>
                 <BoxRanking>
@@ -100,7 +60,12 @@ export default function HomeLogged() {
             </Box>
         </Total>
     )
-}
+};
+
+const Unit = styled.div`
+     width: 100%;
+    height: 100%;
+`
 
 const Total = styled.div`
     width: 100%;
@@ -189,7 +154,7 @@ const Bibliography = styled(Link)`
     color: black;
 
 `
-const ScienceFiction= styled(Link)`
+const ScienceFiction = styled(Link)`
     color: black;
 
 `
