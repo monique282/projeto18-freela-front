@@ -2,7 +2,7 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Login from "./Pages/Login.jsx"
 import Register from "./Pages/Register.jsx";
-import HomeDislocated from "./Pages/HomeDislocated.jsx";
+import RetailedSale from "./Pages/RetailedSale.jsx";
 import Home from "./Pages/Home.jsx";
 
 
@@ -12,7 +12,7 @@ export default function App() {
       {/* <AuthProvider> */}
       <Routes>
         <Route path='/' element={<Home />} />
-        <Route path='/l' element={<HomeDislocated />} />
+        <Route path='/detailed/:id' element={<RetailedSale />} />
         <Route path='/signin' element={<Login />} />
         <Route path='/signup' element={<Register />} />
       </Routes>

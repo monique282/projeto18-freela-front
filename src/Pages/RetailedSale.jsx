@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import { AuthContext } from "./Contex";
@@ -9,13 +9,12 @@ export default function Home() {
     //const { setAuth } = useContext(AuthContext);
     const { name, token } = useContext(AuthContext);
     const [list, setList] = useState([]);
-    const [allOfProduct, setAllOfProduct] = useState([]);
-
-
+    const { id } = useParams()
     const navigate = useNavigate();
 
+    // pegando o produto pelo id
     useEffect(() => {
-        const url = `${import.meta.env.VITE_API_URL}/products`
+        const url = `${import.meta.env.VITE_API_URL}/products/${id}`
 
         const promise = axios.get(url);
         promise.then(response => {
@@ -26,16 +25,6 @@ export default function Home() {
                 alert(err.response.data);
             });
     }, []);
-
-    useEffect(() => {
-
-    }, [allOfProduct]);
-
-    console.log(allOfProduct)
-    function productsId(all) {
-        console.log("Product clicked:", all);
-        setAllOfProduct([all]);
-    };
 
     return (
         <Total>
@@ -57,38 +46,14 @@ export default function Home() {
                 <Others>Outros</Others>
             </Categories>
             <SingInContainer>
-
                 {list.map(list => (
-                    <Unit to={`/detailed/${list.id}`} key={list.id}>
+                    <Unit key={list.id}>
                         <img src={list.photo} alt="" />
                         <Title>{list.name}</Title>
                         <Category>{list.category}</Category>
                         <Price>R$ {(list.price / 100).toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</Price>
                     </Unit>
                 ))}
-
-                {/* 
-                {allOfProduct.length === 0 && (
-                    list.map(list => (
-                        <Unit onClick={() => productsId(list)} key={list.id}>
-                            <img src={list.photo} alt="" />
-                            <Title>{list.name}</Title>
-                            <Category>{list.category}</Category>
-                            <Price>R$ {(list.price / 100).toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</Price>
-                        </Unit>
-                    ))
-                )}
-
-                {allOfProduct.length !== 0 && (
-                    allOfProduct.map(allOfProduct => (
-                        <UnitAll key={allOfProduct.id}>
-                            <img src={allOfProduct.photo} alt="" />
-                            <TitleAll>{allOfProduct.name}</TitleAll>
-                            <CategoryAll>{allOfProduct.category}</CategoryAll>
-                            <PriceAll>R$ {(allOfProduct.price / 100).toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</PriceAll>
-                        </UnitAll>
-                    ))
-                )} */}
             </SingInContainer>
         </Total>
     )
@@ -107,7 +72,6 @@ const Above = styled.div`
     margin-top: 20px;
     display: flex;
     background-color: #7a2e4a;
-   // background: linear-gradient(to right, #ed6b9b, #85f6d4);
     
 `
 const SaleExit = styled.div`
