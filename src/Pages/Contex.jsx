@@ -22,7 +22,7 @@ export default function AuthProvider({ children }) {
     return (
         <AuthContext.Provider value={{
             name, setName,
-            token, setToken,
+            token, setToken
         }}>
             {children}
         </AuthContext.Provider>

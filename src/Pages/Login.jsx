@@ -6,9 +6,9 @@ import { ThreeDots } from "react-loader-spinner";
 import axios from "axios";
 import { AuthContext } from "./Contex";
 
-export default function Home() {
+export default function login() {
 
-    const { setName, setToken } = useContext(AuthContext);
+    const { setToken } = useContext(AuthContext);
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [disabled, setDisabled] = useState(false);
@@ -21,18 +21,16 @@ export default function Home() {
         const data = {
             email: email,
             password: password,
-
         }
 
         const url = `${import.meta.env.VITE_API_URL}/signin`
         const promise = axios.post(url, data);
         setDisabled(true);
-        promise.then(response => {
+        promise.then(response => { 
+            console.log(response.data.token)
+            // setToken(response.data.token);
+            localStorage.setItem("token", response.data.token);   
             navigate("/");
-            setName(response.data.name);
-            setToken(response.data.token);
-            localStorage.setItem("token", response.data.token);
-            localStorage.setItem("name", response.data.name);
         });
         promise.catch(err => {
             alert(err.response.data);

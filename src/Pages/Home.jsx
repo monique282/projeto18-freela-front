@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { Link, useNavigate } from "react-router-dom";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import { AuthContext } from "./Contex";
 
@@ -8,25 +8,24 @@ export default function Home() {
 
     //const { setAuth } = useContext(AuthContext);
     const { name, token } = useContext(AuthContext);
+    const [list, setList] = useState([]);
+
+
     const navigate = useNavigate();
 
     useEffect(() => {
-        const url = `${import.meta.env.VITE_API_URL}/posts`
-        const confi = {
-          headers: {
-            Authorization: `Bearer ${token}`
-          }
-        };
-        const promise = axios.get(url, confi);
-        promise.then(resposta => {
-          console.log(resposta)
-    
-        })
-          .catch(resposta => {
-            alert(resposta.response.data);
-          });
-      }, []);
+        const url = `${import.meta.env.VITE_API_URL}/products`
 
+        const promise = axios.get(url);
+        promise.then(response => {
+            console.log(response.data)
+            setList(response.data)
+        })
+            .catch(err => {
+                alert(err.response.data);
+            });
+    }, []);
+    console.log(list)
     return (
         <Total>
             <Above>
@@ -47,12 +46,15 @@ export default function Home() {
                 <Others>Outros</Others>
             </Categories>
             <SingInContainer>
-                <Unit>
-                    <img src="https://www.google.com/url?sa=i&url=https%3A%2F%2Fjamboeditora.com.br%2Fproduto%2Fordem-paranormal-rpg%2F&psig=AOvVaw0t-0Vy0No6JGkjyodkTILt&ust=1691783168051000&source=images&cd=vfe&opi=89978449&ved=0CBEQjRxqFwoTCLiolcjt0oADFQAAAAAdAAAAABAE" alt="" />
-                    <Title>Ordem Paranormal</Title>
-                    <Category>Ficção</Category>
-                    <Price>R$ 24,99</Price>
-                </Unit>
+                {list.map(list => (
+                    <Unit>
+                        <img src="https://www.google.com/url?sa=i&url=https%3A%2F%2Fjamboeditora.com.br%2Fproduto%2Fordem-paranormal-rpg%2F&psig=AOvVaw0t-0Vy0No6JGkjyodkTILt&ust=1691783168051000&source=images&cd=vfe&opi=89978449&ved=0CBEQjRxqFwoTCLiolcjt0oADFQAAAAAdAAAAABAE" alt="" />
+                        <Title>{list.name}</Title>
+                        <Category>{list.category}</Category>
+                        <Price>R$ {(list.price / 100).toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</Price>
+                    </Unit>
+                ))
+                }
             </SingInContainer>
         </Total>
     )
@@ -190,7 +192,6 @@ const Others = styled(Link)`
 const SingInContainer = styled.section`
     height: 100vh;
     display: flex;
-    flex-direction: column;
     align-items: center;
     //background-color: red;
 `
@@ -203,7 +204,8 @@ const Unit = styled.div`
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    margin-top: 30px;
+    margin: 20px;
+    
     img{
         width: 230px;
         height: 470px;
@@ -216,7 +218,7 @@ const Title = styled.div`
     width: 100%;
     height: 20px;
     font-family: Lexend Deca;
-    font-size: 16px;
+    font-size: 18px;
     font-style: normal;
     font-weight: 400;
     line-height: normal;
