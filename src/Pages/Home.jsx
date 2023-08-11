@@ -9,6 +9,7 @@ export default function Home() {
     //const { setAuth } = useContext(AuthContext);
     const { name, token } = useContext(AuthContext);
     const [list, setList] = useState([]);
+    const [allOfProduct, setAllOfProduct] = useState([]);
 
 
     const navigate = useNavigate();
@@ -25,13 +26,23 @@ export default function Home() {
                 alert(err.response.data);
             });
     }, []);
-    console.log(list)
+
+    useEffect(() => {
+
+    }, [allOfProduct]);
+
+    console.log(allOfProduct)
+    function productsId(all) {
+        console.log("Product clicked:", all);
+        setAllOfProduct([all]);
+    };
+
     return (
         <Total>
             <Above>
-                <Welcome>Seja bem-vindo(a), {name}!</Welcome>
+                <Welcome>Seja bem-vindo(a) {name}!</Welcome>
                 <SaleExit>
-                    <Sale to={'/'} >Venda seu produro</Sale>
+                    <Sale to={'/'} >Venda seu produto</Sale>
                     <Login to={'/signin'} >Entrar</Login>
                     <Register to={'/signup'}>Cadastra-se</Register>
                     <Exit>Sair</Exit>
@@ -46,25 +57,40 @@ export default function Home() {
                 <Others>Outros</Others>
             </Categories>
             <SingInContainer>
-                {list.map(list => (
-                    <Unit>
-                        <img src="https://www.google.com/url?sa=i&url=https%3A%2F%2Fjamboeditora.com.br%2Fproduto%2Fordem-paranormal-rpg%2F&psig=AOvVaw0t-0Vy0No6JGkjyodkTILt&ust=1691783168051000&source=images&cd=vfe&opi=89978449&ved=0CBEQjRxqFwoTCLiolcjt0oADFQAAAAAdAAAAABAE" alt="" />
-                        <Title>{list.name}</Title>
-                        <Category>{list.category}</Category>
-                        <Price>R$ {(list.price / 100).toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</Price>
-                    </Unit>
-                ))
-                }
+                {allOfProduct.length === 0 && (
+                    list.map(list => (
+                        <Unit onClick={() => productsId(list)} key={list.id}>
+                            <img src={list.photo} alt="" />
+                            <Title>{list.name}</Title>
+                            <Category>{list.category}</Category>
+                            <Price>R$ {(list.price / 100).toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</Price>
+                        </Unit>
+                    ))
+                )}
+
+                {allOfProduct.length !== 0 && (
+                    allOfProduct.map(allOfProduct => (
+                        <UnitAll key={allOfProduct.id}>
+                            <img src={allOfProduct.photo} alt="" />
+                            <TitleAll>{allOfProduct.name}</TitleAll>
+                            <CategoryAll>{allOfProduct.category}</CategoryAll>
+                            <PriceAll>R$ {(allOfProduct.price / 100).toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</PriceAll>
+                        </UnitAll>
+                    ))
+                )}
+
+
             </SingInContainer>
         </Total>
     )
 };
 
 const Total = styled.div`
-    width: 100%;
-    height: 100%;
-    //background-color: #bd4470;
+    min-height: 100vh; 
     background: linear-gradient(to bottom, #bd4470, #5dc1a3);
+    display: flex;
+    flex-direction: column; 
+    overflow: hidden; 
 `
 const Above = styled.div`
     width: 100%;
@@ -190,14 +216,18 @@ const Others = styled(Link)`
 
 `
 const SingInContainer = styled.section`
-    height: 100vh;
+    flex: 1; 
     display: flex;
-    align-items: center;
-    //background-color: red;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 20px;
+    box-sizing: border-box;
+    overflow: auto; 
 `
-const Unit = styled.div`
+const Unit = styled(Link)`
     width: 250px;
-    height: 400px;
+    height: auto; 
     background-color: wheat;
     border-radius: 20px;
     display: flex;
@@ -206,9 +236,9 @@ const Unit = styled.div`
     align-items: center;
     margin: 20px;
     
+    
     img{
         width: 230px;
-        height: 470px;
         border-radius: 20px;
         background-color: black;
         margin-top: 7px;
@@ -256,18 +286,61 @@ const Price = styled.div`
     margin-top: 7px;
     margin-bottom: 7px;
 `
-const Box = styled.div`
+const UnitAll = styled(Link)`
+    width: 250px;
+    height: auto; 
+    background-color: wheat;
+    border-radius: 20px;
     display: flex;
     justify-content: center;
     align-items: center;
-    margin: 57px;
+    margin: 20px;
+        img{
+            width: 230px;
+            border-radius: 20px;
+            background-color: black;
+            margin-top: 7px;
+        }
 `
-const BoxRanking = styled.div`
-    width: 1017px;
-    height: 100%;
-    border-radius: 10px;
-    border-radius: 24px 24px 0px 0px;
-    border: 1px solid rgba(120, 177, 89, 0.25);
-    background: #FFF;
-    box-shadow: 0px 4px 24px 0px rgba(120, 177, 89, 0.12);
+const TitleAll = styled.div`
+    width: 100%;
+    height: 20px;
+    font-family: Lexend Deca;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    color: #bd4470;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 7px;
+`
+const CategoryAll = styled.div`
+    width: 100%;
+    height: 20px;
+    font-family: Lexend Deca;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    color: #bd4470;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+`
+const PriceAll = styled.div`
+    width: 100%;
+    height: 20px;
+    font-family: Lexend Deca;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    color: black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 7px;
+    margin-bottom: 7px;
 `
