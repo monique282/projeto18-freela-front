@@ -94,6 +94,7 @@ export default function Home() {
     )
 };
 
+
 const Total = styled.div`
     min-height: 100vh; 
     background: linear-gradient(to bottom, #bd4470, #5dc1a3);

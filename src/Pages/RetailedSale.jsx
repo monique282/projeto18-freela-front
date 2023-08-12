@@ -6,7 +6,6 @@ import { AuthContext } from "./Contex";
 
 export default function Home() {
 
-    //const { setAuth } = useContext(AuthContext);
     const { name, token } = useContext(AuthContext);
     const [list, setList] = useState([]);
     const { id } = useParams()
@@ -24,6 +23,8 @@ export default function Home() {
             .catch(err => {
                 alert(err.response.data);
             });
+
+        const urlUsers = `${import.meta.env.VITE_API_URL}/products/${id}`
     }, []);
 
     return (
@@ -49,9 +50,15 @@ export default function Home() {
                 {list.map(list => (
                     <Unit key={list.id}>
                         <img src={list.photo} alt="" />
-                        <Title>{list.name}</Title>
-                        <Category>{list.category}</Category>
-                        <Price>R$ {(list.price / 100).toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</Price>
+                        <Information>
+                            <Title>Titulo do livro: {list.name}</Title>
+                            <Category>Categoria: {list.category}</Category>
+                            <DescripionInf>Descrição do livro</DescripionInf>
+                            <Descripion>{list.description} </Descripion>
+                            <SellerName>Nome do vendedor: {list.users.name}</SellerName>
+                            <Contact>Para comprar entre em contato com vendedor: {list.users.phone}</Contact>
+                            <Price> Comprar por apenas R$ {(list.price / 100).toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</Price>
+                        </Information>
                     </Unit>
                 ))}
             </SingInContainer>
@@ -71,8 +78,7 @@ const Above = styled.div`
     height: 100%;
     margin-top: 20px;
     display: flex;
-    background-color: #7a2e4a;
-    
+    background-color: #7a2e4a; 
 `
 const SaleExit = styled.div`
     width: 100%;
@@ -155,12 +161,11 @@ const Exit = styled(Link)`
     margin-top: 17px;
 `
 const Categories = styled.div`
-     width: 100%;
-     display: flex;
-     margin-top: 30px;
-    // background-color: #e92121;
-     justify-content: space-between;
-     color: black;
+    width: 100%;
+    display: flex;
+    margin-top: 30px;
+    justify-content: space-between;
+    color: black;
 `
 const Affairs = styled(Link)`
     margin-left: 20px;
@@ -199,35 +204,43 @@ const SingInContainer = styled.section`
     overflow: auto; 
 `
 const Unit = styled(Link)`
-    width: 250px;
+    width: 800px;
     height: auto; 
     background-color: wheat;
     border-radius: 20px;
     display: flex;
-    flex-direction: column;
-    justify-content: center;
     align-items: center;
     margin: 20px;
-    
     
     img{
         width: 230px;
         border-radius: 20px;
         background-color: black;
         margin-top: 7px;
+        margin-left: 10px;
+        margin-bottom: 7px;
+        margin-right: 7px;
     }
+`
+const Information = styled.div`
+    width: 100vh;
+    display: flex;
+    flex-direction: column;
+    margin: 20px;
+    margin-left: 19px;
+    //background-color: red;
+    margin-bottom: 7px;
 `
 const Title = styled.div`
     width: 100%;
     height: 20px;
     font-family: Lexend Deca;
-    font-size: 18px;
+    font-size: 30px;
     font-style: normal;
     font-weight: 400;
     line-height: normal;
     color: #bd4470;
     display: flex;
-    justify-content: center;
     align-items: center;
     margin-top: 7px;
 `
@@ -235,18 +248,62 @@ const Category = styled.div`
     width: 100%;
     height: 20px;
     font-family: Lexend Deca;
-    font-size: 12px;
+    font-size: 20px;
     font-style: normal;
     font-weight: 400;
     line-height: normal;
-    color: #bd4470;
+    color: black;
     display: flex;
-    justify-content: center;
+    align-items: center;
+    margin-top: 10px;
+`
+const DescripionInf = styled.div`
+    font-family: Lexend Deca;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    color: black;
+    margin-top: 20px;
+    display: flex;
+    align-items: center;
+`
+const Descripion = styled.div`
+    font-family: Lexend Deca;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    color: black;
+    display: flex;
+    align-items: center;
+`
+const SellerName = styled.div`
+    font-family: Lexend Deca;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    color: black;
+    margin-top: 20px;
+    display: flex;
+    align-items: center;
+`
+const Contact = styled.div`
+    font-family: Lexend Deca;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    color: black;
+    display: flex;
     align-items: center;
 `
 const Price = styled.div`
-    width: 100%;
-    height: 20px;
+    width: 500px;
+    height: 50px;
+    //background-color: #bd4470;
+    border-radius: 10px;
     font-family: Lexend Deca;
     font-size: 18px;
     font-style: normal;
@@ -256,64 +313,7 @@ const Price = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-top: 7px;
     margin-bottom: 7px;
+    margin-top: 20px;
 `
-const UnitAll = styled(Link)`
-    width: 250px;
-    height: auto; 
-    background-color: wheat;
-    border-radius: 20px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: 20px;
-        img{
-            width: 230px;
-            border-radius: 20px;
-            background-color: black;
-            margin-top: 7px;
-        }
-`
-const TitleAll = styled.div`
-    width: 100%;
-    height: 20px;
-    font-family: Lexend Deca;
-    font-size: 18px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: normal;
-    color: #bd4470;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 7px;
-`
-const CategoryAll = styled.div`
-    width: 100%;
-    height: 20px;
-    font-family: Lexend Deca;
-    font-size: 12px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: normal;
-    color: #bd4470;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-`
-const PriceAll = styled.div`
-    width: 100%;
-    height: 20px;
-    font-family: Lexend Deca;
-    font-size: 18px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: normal;
-    color: black;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 7px;
-    margin-bottom: 7px;
-`
+
