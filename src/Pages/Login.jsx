@@ -8,7 +8,7 @@ import { AuthContext } from "./Contex";
 
 export default function login() {
 
-    const { setToken } = useContext(AuthContext);
+    const { setToken, setName } = useContext(AuthContext);
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [disabled, setDisabled] = useState(false);
@@ -27,7 +27,9 @@ export default function login() {
         const promise = axios.post(url, data);
         setDisabled(true);
         promise.then(response => { 
+            console.log(response.data.name)
             setToken(response.data.token);
+            setName(response.data.name)
             localStorage.setItem("token", response.data.token);   
             navigate("/");
         });

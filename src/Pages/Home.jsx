@@ -8,8 +8,9 @@ export default function Home() {
 
     const { name, token } = useContext(AuthContext);
     const [list, setList] = useState([]);
-
     const navigate = useNavigate();
+
+    console.log(name)
     useEffect(() => {
         const url = `${import.meta.env.VITE_API_URL}/products`
 
@@ -39,10 +40,9 @@ export default function Home() {
                         <Exit>Sair</Exit>
                     </SaleExit>)}
                 {token && (<SaleExit>
-                        <Sale to={'/'} >Venda seu produto</Sale>
-                        <Exit>Sair</Exit>
-                    </SaleExit>)}
-
+                    <Sale to={'/'} >Venda seu produto</Sale>
+                    <Exit>Sair</Exit>
+                </SaleExit>)}
             </Above>
             <Categories>
                 <Affairs>Romances</Affairs>
