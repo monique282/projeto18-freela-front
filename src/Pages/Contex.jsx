@@ -12,9 +12,9 @@ export default function AuthProvider({ children }) {
 
     // usar um 
     useEffect(() => {
-        if (lsUser === null && localiza.pathname !== "/signup") {
+        if (lsToken === null && localiza.pathname !== "/signup") {
             navigate("/");
-        } else if (lsUser && localiza.pathname !== "/singup") {
+        } else if (lsToken && localiza.pathname !== "/singup") {
             navigate("/");
         }
     }, []);

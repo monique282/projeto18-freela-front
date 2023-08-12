@@ -27,8 +27,7 @@ export default function login() {
         const promise = axios.post(url, data);
         setDisabled(true);
         promise.then(response => { 
-            console.log(response.data.token)
-            // setToken(response.data.token);
+            setToken(response.data.token);
             localStorage.setItem("token", response.data.token);   
             navigate("/");
         });

@@ -6,14 +6,10 @@ import { AuthContext } from "./Contex";
 
 export default function Home() {
 
-    //const { setAuth } = useContext(AuthContext);
     const { name, token } = useContext(AuthContext);
     const [list, setList] = useState([]);
-    const [allOfProduct, setAllOfProduct] = useState([]);
-
 
     const navigate = useNavigate();
-
     useEffect(() => {
         const url = `${import.meta.env.VITE_API_URL}/products`
 
@@ -29,24 +25,24 @@ export default function Home() {
 
     useEffect(() => {
 
-    }, [allOfProduct]);
-
-    console.log(allOfProduct)
-    function productsId(all) {
-        console.log("Product clicked:", all);
-        setAllOfProduct([all]);
-    };
+    }, []);
 
     return (
         <Total>
             <Above>
                 <Welcome>Seja bem-vindo(a) {name}!</Welcome>
-                <SaleExit>
-                    <Sale to={'/'} >Venda seu produto</Sale>
-                    <Login to={'/signin'} >Entrar</Login>
-                    <Register to={'/signup'}>Cadastra-se</Register>
-                    <Exit>Sair</Exit>
-                </SaleExit>
+                {!token && (
+                    <SaleExit>
+                        <Sale to={'/'} >Venda seu produto</Sale>
+                        <Login to={'/signin'} >Entrar</Login>
+                        <Register to={'/signup'}>Cadastra-se</Register>
+                        <Exit>Sair</Exit>
+                    </SaleExit>)}
+                {token && (<SaleExit>
+                        <Sale to={'/'} >Venda seu produto</Sale>
+                        <Exit>Sair</Exit>
+                    </SaleExit>)}
+
             </Above>
             <Categories>
                 <Affairs>Romances</Affairs>
