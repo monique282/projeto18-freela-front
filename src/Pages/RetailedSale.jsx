@@ -1,9 +1,11 @@
 import styled from "styled-components";
+//import { IonIcon } from '@ionic/react';
+import { closeCircleOutline } from 'ionicons/icons';
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import { AuthContext } from "./Contex";
-
+{/* <ion-icon name="close-circle-outline"></ion-icon> */ }
 export default function Home() {
 
     const { name, token } = useContext(AuthContext);
@@ -59,12 +61,15 @@ export default function Home() {
                             <Contact>Para comprar entre em contato com vendedor: {list.users.phone}</Contact>
                             <Price> Comprar por apenas R$ {(list.price / 100).toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</Price>
                         </Information>
+                        <Link to={'/'}><ion-icon icon={closeCircleOutline} style={{ color: '#bd4470', width: '50px', height: '50px', marginTop: '0px', marginRight: '5px', marginLeft: '-16px' }} /></Link>
+
                     </Unit>
                 ))}
             </SingInContainer>
         </Total>
     )
 };
+
 
 const Total = styled.div`
     min-height: 100vh; 
@@ -209,7 +214,6 @@ const Unit = styled(Link)`
     background-color: wheat;
     border-radius: 20px;
     display: flex;
-    align-items: center;
     margin: 20px;
     
     img{
@@ -226,7 +230,6 @@ const Information = styled.div`
     width: 100vh;
     display: flex;
     flex-direction: column;
-    margin: 20px;
     margin-left: 19px;
     //background-color: red;
     margin-bottom: 7px;
@@ -242,7 +245,7 @@ const Title = styled.div`
     color: #bd4470;
     display: flex;
     align-items: center;
-    margin-top: 7px;
+    margin-top: 17px;
 `
 const Category = styled.div`
     width: 100%;
