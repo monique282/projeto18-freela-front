@@ -8,14 +8,13 @@ import { AuthContext } from "./Contex";
 export default function Sale() {
 
     const { name, token, setToken } = useContext(AuthContext);
-    const [list, setList] = useState([]);
     const [disabled, setDisabled] = useState(false);
-    const { id } = useParams();
     const [nameL, setName] = useState('');
     const [description, setDescription] = useState('');
     const [prince, setPrince] = useState('');
     const [photos, setPhotos] = useState([{ value: '', disabled: false }]);
-    const [removedPhotos, setRemovedPhotos] = useState([]);
+    const [addSaleForm, setAddSaleForm] = useState(false);
+
     const navigate = useNavigate();
 
     // pegando o produto pelo id
@@ -49,12 +48,11 @@ export default function Sale() {
             localStorage.clear();
             setToken('');
             navigate("/");
-
         })
             .catch(resposta => {
                 alert(resposta.response.data);
             });
-    }
+    };
 
     function register(e) {
         // e.preventDefault();
@@ -81,7 +79,7 @@ export default function Sale() {
 
         // const promise = axios.post(url, data)
         // setDisabled(true);
-        // promise.then(() => navigate('/signin'));
+        // promise.then(() => setAddSaleForm(false));
         // promise.catch(response => {
         //     alert(response.response.data.message);
         //     setDisabled(false);
@@ -134,7 +132,10 @@ export default function Sale() {
                 <Thriller onClick={() => Filtering('thriller')} >Suspense</Thriller>
                 <Others onClick={() => Filtering('others')}>Outros</Others>
             </Categories>
-            {token && (
+            <AddSales type="button" onClick={() => setAddSaleForm(true)}>
+                Adicionar Venda
+            </AddSales>
+            {addSaleForm && token && (
                 <RegisterSales>
                     <form onSubmit={register}>
                         <Input placeholder="Nome do livro" type="text" required value={nameL} onChange={(e) => setName(e.target.value)} disabled={disabled} />
@@ -142,13 +143,13 @@ export default function Sale() {
                         <Input placeholder="Preço" type="text" required value={prince} onChange={(e) => setPrince(e.target.value)} disabled={disabled} />
                         {photos.map((photo, index) => (
                             <Photo key={index}>
-                                    <InputPhoto
-                                        placeholder="Foto"
-                                        type="text"
-                                        required
-                                        value={photo.value}
-                                        onChange={(e) => photoChange(index, e.target.value)}
-                                        disabled={photo.disabled} />
+                                <InputPhoto
+                                    placeholder="Foto"
+                                    type="text"
+                                    required
+                                    value={photo.value}
+                                    onChange={(e) => photoChange(index, e.target.value)}
+                                    disabled={photo.disabled} />
                                 {index >= 0 && (
                                     <AddPhoto type="button" onClick={() => RemoveInputPhoto(index)}>
                                         -
@@ -182,6 +183,17 @@ export default function Sale() {
 
 const Photo = styled.div`
     display: flex;
+`
+const AddSales = styled.button`
+    color: #ffffff;
+    width: 140px;
+    height: 60px;
+    border-radius: 10px;
+    margin-top: 25px;
+    border-radius: 12px;
+    border: 1px solid rgb(230, 68, 225);
+    box-shadow: 0px 4px 24px 0px rgb(230, 68, 225);
+    background-color: #d540e9;
 `
 
 const AddSale = styled.button`

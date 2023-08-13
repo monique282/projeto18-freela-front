@@ -66,10 +66,11 @@ export default function Home() {
                         <Sales to={'/sales'} >Seus produtos</Sales>
                         <Login_Register to={'/signin'} >Entrar/Cadastra-se</Login_Register>
                     </SaleExit>)}
-                {token && (<SaleExit>
-                    <Sales to={'/sales'} >Seus produtos</Sales>
-                    <Exit onClick={Logout} >Sair</Exit>
-                </SaleExit>)}
+                {token && (
+                    <SaleExit>
+                        <Sales to={'/sales'} >Seus produtos</Sales>
+                        <Exit onClick={Logout} >Sair</Exit>
+                    </SaleExit>)}
             </Above>
             <Categories>
                 <All onClick={() => setAtualization(true)}> Todos </All>
