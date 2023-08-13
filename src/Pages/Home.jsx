@@ -120,7 +120,7 @@ const SaleExit = styled.div`
 `
 const Welcome = styled.div`
     width: 100%;
-    color: #000000;
+    color: #ffffff;
     font-family: Lexend Deca;
     font-size: 16px;
     font-style: normal;
@@ -139,7 +139,7 @@ const Login_Register = styled(Link)`
     margin-left: -30px;
     margin-right: 10px;
     text-decoration: none;
-    color: #000000;
+    color: #ffffff;
     font-family: Lexend Deca;
     font-size: 16px;
     font-style: normal;
@@ -152,7 +152,7 @@ const Sales = styled(Link)`
     height: 22px;
     display: flex;
     text-decoration: none;
-    color: #000000;
+    color: #ffffff;
     font-family: Lexend Deca;
     font-size: 16px;
     font-style: normal;
@@ -166,7 +166,7 @@ const Exit = styled(Link)`
     display: flex;
     margin-right: -30px;
     text-decoration: none;
-    color: #000000;
+    color: #ffffff;
     font-family: Lexend Deca;
     font-size: 16px;
     font-style: normal;

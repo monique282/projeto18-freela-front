@@ -7,7 +7,7 @@ import { AuthContext } from "./Contex";
 
 export default function Sale() {
 
-    const { name, token } = useContext(AuthContext);
+    const { name, token, setToken } = useContext(AuthContext);
     const [list, setList] = useState([]);
     const [disabled, setDisabled] = useState(false);
     const { id } = useParams();
@@ -16,10 +16,6 @@ export default function Sale() {
     const [prince, setPrince] = useState('');
     const [photos, setPhotos] = useState([{ value: '', disabled: false }]);
     const [removedPhotos, setRemovedPhotos] = useState([]);
-
-
-
-
     const navigate = useNavigate();
 
     // pegando o produto pelo id
@@ -51,8 +47,9 @@ export default function Sale() {
         promise.then(resposta => {
             // apagar o local storage
             localStorage.clear();
-            setAtualization(true);
             setToken('');
+            navigate("/");
+
         })
             .catch(resposta => {
                 alert(resposta.response.data);
