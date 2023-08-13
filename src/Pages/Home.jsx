@@ -63,7 +63,7 @@ export default function Home() {
                 <Welcome>Seja bem-vindo(a) {name}!</Welcome>
                 {!token && (
                     <SaleExit>
-                        <Sale to={'/'} >Venda seu produto</Sale>
+                        <Sale to={'/sales'} >Seus produtos</Sale>
                         <Login to={'/signin'} >Entrar</Login>
                         <Register to={'/signup'}>Cadastra-se</Register>
                     </SaleExit>)}
@@ -74,12 +74,12 @@ export default function Home() {
             </Above>
             <Categories>
                 <All onClick={() => setAtualization(true)}> Todos </All>
-                <Affairs onClick={(affairs) => Filtering('affairs')} >Romances</Affairs>
-                <Adventure onClick={(adventure) => Filtering('adventure')} >Aventura</Adventure>
-                <Bibliography onClick={(bibliography) => Filtering('bibliography')} >Bibliografia</Bibliography>
-                <ScienceFiction onClick={(scienceFiction) => Filtering('scienceFiction')} > Ficção Científica </ScienceFiction>
-                <Thriller onClick={(thriller) => Filtering('thriller')} >Suspense</Thriller>
-                <Others onClick={(others) => Filtering('others')}>Outros</Others>
+                <Affairs onClick={() => Filtering('affairs')} >Romances</Affairs>
+                <Adventure onClick={() => Filtering('adventure')} >Aventura</Adventure>
+                <Bibliography onClick={() => Filtering('bibliography')} >Bibliografia</Bibliography>
+                <ScienceFiction onClick={() => Filtering('scienceFiction')} > Ficção Científica </ScienceFiction>
+                <Thriller onClick={() => Filtering('thriller')} >Suspense</Thriller>
+                <Others onClick={() => Filtering('others')}>Outros</Others>
             </Categories>
             <SingInContainer>
 
@@ -292,61 +292,4 @@ const Price = styled.div`
     margin-top: 7px;
     margin-bottom: 7px;
 `
-const UnitAll = styled(Link)`
-    width: 250px;
-    height: auto; 
-    background-color: wheat;
-    border-radius: 20px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: 20px;
-        img{
-            width: 230px;
-            border-radius: 20px;
-            background-color: black;
-            margin-top: 7px;
-        }
-`
-const TitleAll = styled.div`
-    width: 100%;
-    height: 20px;
-    font-family: Lexend Deca;
-    font-size: 18px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: normal;
-    color: #bd4470;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 7px;
-`
-const CategoryAll = styled.div`
-    width: 100%;
-    height: 20px;
-    font-family: Lexend Deca;
-    font-size: 12px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: normal;
-    color: #bd4470;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-`
-const PriceAll = styled.div`
-    width: 100%;
-    height: 20px;
-    font-family: Lexend Deca;
-    font-size: 18px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: normal;
-    color: black;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 7px;
-    margin-bottom: 7px;
-`
+
