@@ -44,6 +44,19 @@ export default function Home() {
             });
     }
 
+    // serva para fazer a filtragem do que vai aparecer na tela por categoria
+    function Filtering(param) {
+        const url = `${import.meta.env.VITE_API_URL}/filtering/${param}`
+        
+        const promise = axios.get(url);
+        promise.then(response => {
+         setList(response.data)
+        })
+            .catch(response => {
+                alert(response.response.data);
+            });
+    }
+
     return (
         <Total>
             <Above>
@@ -60,12 +73,13 @@ export default function Home() {
                 </SaleExit>)}
             </Above>
             <Categories>
-                <Affairs>Romances</Affairs>
-                <Adventure>Aventura</Adventure>
-                <Bibliography>Bibliografia</Bibliography>
-                <ScienceFiction> Ficção Científica </ScienceFiction>
-                <Thriller>Suspense</Thriller>
-                <Others>Outros</Others>
+                <All onClick={() => setAtualization(true)}> Todos </All>
+                <Affairs onClick={(affairs) => Filtering('affairs')} >Romances</Affairs>
+                <Adventure onClick={(adventure) => Filtering('adventure')} >Aventura</Adventure>
+                <Bibliography onClick={(bibliography) => Filtering('bibliography')} >Bibliografia</Bibliography>
+                <ScienceFiction onClick={(scienceFiction) => Filtering('scienceFiction')} > Ficção Científica </ScienceFiction>
+                <Thriller onClick={(thriller) => Filtering('thriller')} >Suspense</Thriller>
+                <Others onClick={(others) => Filtering('others')}>Outros</Others>
             </Categories>
             <SingInContainer>
 
@@ -184,8 +198,11 @@ const Categories = styled.div`
      justify-content: space-between;
      color: black;
 `
-const Affairs = styled(Link)`
+const All = styled(Link)`
     margin-left: 20px;
+    color: black;
+`
+const Affairs = styled(Link)`
     color: black;
 `
 const Adventure = styled(Link)`
