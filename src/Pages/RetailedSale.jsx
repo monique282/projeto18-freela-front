@@ -32,9 +32,8 @@ export default function Home() {
             <Above>
                 <Welcome>Seja bem-vindo(a) {name}!</Welcome>
                 <SaleExit>
-                    <Sale to={'/'} >Venda seu produto</Sale>
-                    <Login to={'/signin'} >Entrar</Login>
-                    <Register to={'/signup'}>Cadastra-se</Register>
+                    <Sale to={'/sales'} >Seus produto</Sale>
+                    <Login_Register to={'/signin'} >Entrar/Cadastra-se</Login_Register>
                     <Exit>Sair</Exit>
                 </SaleExit>
             </Above>
@@ -104,28 +103,14 @@ const Welcome = styled.div`
     justify-content: flex-start;
     margin-top: 17px;
 `
-const Login = styled(Link)`
-    width: 69px;
-    height: 18px;
-    display: flex;
-    margin-left: 10px;
-    text-decoration: none;
-    color: #ffffff;
-    font-family: Lexend Deca;
-    font-size: 16px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: normal;
-    margin-top: 17px;
-`
-const Register = styled(Link)`
-    width: 89px;
+const Login_Register = styled(Link)`
+    width: 130px;
     height: 30px;
     display: flex;
-    margin-left: 10px;
+    margin-left: -30px;
     margin-right: 10px;
     text-decoration: none;
-    color: #ffffff;
+    color: #000000;
     font-family: Lexend Deca;
     font-size: 16px;
     font-style: normal;
@@ -151,7 +136,7 @@ const Exit = styled(Link)`
     width: 90px;
     height: 22px;
     display: flex;
-    margin-left: 10px;
+    margin-right: -30px;
     margin-right: 0px;
     text-decoration: none;
     color: #ffffff;

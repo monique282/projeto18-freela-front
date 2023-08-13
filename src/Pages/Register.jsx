@@ -122,7 +122,6 @@ const Register = styled(Link)`
     font-weight: 400;
     line-height: normal;
 `
-
 const Slogan = styled.div`
     width: 100%;
     height: 100%;
