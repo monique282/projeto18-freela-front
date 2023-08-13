@@ -27,7 +27,6 @@ export default function login() {
         const promise = axios.post(url, data);
         setDisabled(true);
         promise.then(response => { 
-            console.log(response.data.name)
             setToken(response.data.token);
             setName(response.data.name)
             localStorage.setItem("token", response.data.token);   
@@ -69,7 +68,6 @@ export default function login() {
 const Total = styled.div`
     width: 100%;
     height: 100%;
-    /* background-color: #d540e9; */
 `
 const RegisteLogin = styled.div`
     width: 100%;
@@ -106,7 +104,6 @@ const Register = styled(Link)`
     font-weight: 400;
     line-height: normal;
 `
-
 const Slogan = styled.div`
     width: 100%;
     height: 100%;
@@ -151,4 +148,6 @@ const Input = styled.input`
     background: #FFF;
     box-shadow: 0px 4px 10px 0px rgba(216, 47, 232, 0.916);
     outline: none;
+    padding: 15px;
+    font-size: 15px;
 `

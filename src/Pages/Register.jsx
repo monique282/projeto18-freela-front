@@ -158,7 +158,7 @@ const SingUpContainer = styled.section`
     } 
 `
 const Input = styled.input`
-     width: 769px;
+    width: 769px;
     height: 60px;
     margin-top: 10px;
     border-radius: 12px;
@@ -166,4 +166,6 @@ const Input = styled.input`
     background: #FFF;
     box-shadow: 0px 4px 10px 0px rgba(216, 47, 232, 0.916);
     outline: none;
+    padding: 15px;
+    font-size: 15px;
 `

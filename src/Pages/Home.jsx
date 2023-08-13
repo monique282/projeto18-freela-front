@@ -6,27 +6,43 @@ import { AuthContext } from "./Contex";
 
 export default function Home() {
 
-    const { name, token } = useContext(AuthContext);
+    const { name, token, setToken } = useContext(AuthContext);
     const [list, setList] = useState([]);
+    const [atualization, setAtualization] = useState(false);
     const navigate = useNavigate();
 
-    console.log(name)
     useEffect(() => {
         const url = `${import.meta.env.VITE_API_URL}/products`
 
         const promise = axios.get(url);
         promise.then(response => {
-            console.log(response.data)
             setList(response.data)
         })
             .catch(err => {
                 alert(err.response.data);
             });
-    }, []);
+    }, [atualization]);
 
-    useEffect(() => {
+    // essa parte vai deslogar a pessoa
+    function Logout() {
 
-    }, []);
+        const url = `${import.meta.env.VITE_API_URL}/logout`
+        const confi = {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        };
+        const promise = axios.delete(url, confi);
+        promise.then(resposta => {
+            // apagar o local storage
+            localStorage.clear();
+            setAtualization(true);
+            setToken('');
+        })
+            .catch(resposta => {
+                alert(resposta.response.data);
+            });
+    }
 
     return (
         <Total>
@@ -37,11 +53,10 @@ export default function Home() {
                         <Sale to={'/'} >Venda seu produto</Sale>
                         <Login to={'/signin'} >Entrar</Login>
                         <Register to={'/signup'}>Cadastra-se</Register>
-                        <Exit>Sair</Exit>
                     </SaleExit>)}
                 {token && (<SaleExit>
                     <Sale to={'/'} >Venda seu produto</Sale>
-                    <Exit>Sair</Exit>
+                    <Exit onClick={Logout} >Sair</Exit>
                 </SaleExit>)}
             </Above>
             <Categories>
@@ -62,29 +77,6 @@ export default function Home() {
                         <Price>R$ {(list.price / 100).toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</Price>
                     </Unit>
                 ))}
-
-                {/* 
-                {allOfProduct.length === 0 && (
-                    list.map(list => (
-                        <Unit onClick={() => productsId(list)} key={list.id}>
-                            <img src={list.photo} alt="" />
-                            <Title>{list.name}</Title>
-                            <Category>{list.category}</Category>
-                            <Price>R$ {(list.price / 100).toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</Price>
-                        </Unit>
-                    ))
-                )}
-
-                {allOfProduct.length !== 0 && (
-                    allOfProduct.map(allOfProduct => (
-                        <UnitAll key={allOfProduct.id}>
-                            <img src={allOfProduct.photo} alt="" />
-                            <TitleAll>{allOfProduct.name}</TitleAll>
-                            <CategoryAll>{allOfProduct.category}</CategoryAll>
-                            <PriceAll>R$ {(allOfProduct.price / 100).toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</PriceAll>
-                        </UnitAll>
-                    ))
-                )} */}
             </SingInContainer>
         </Total>
     )
@@ -103,9 +95,7 @@ const Above = styled.div`
     height: 100%;
     margin-top: 20px;
     display: flex;
-    background-color: #7a2e4a;
-   // background: linear-gradient(to right, #ed6b9b, #85f6d4);
-    
+    background-color: #7a2e4a; 
 `
 const SaleExit = styled.div`
     width: 100%;
@@ -117,7 +107,7 @@ const SaleExit = styled.div`
 `
 const Welcome = styled.div`
     width: 100%;
-    color: #ffffff;
+    color: #000000;
     font-family: Lexend Deca;
     font-size: 16px;
     font-style: normal;
@@ -135,7 +125,7 @@ const Login = styled(Link)`
     display: flex;
     margin-left: 10px;
     text-decoration: none;
-    color: #ffffff;
+    color: #000000;
     font-family: Lexend Deca;
     font-size: 16px;
     font-style: normal;
@@ -150,7 +140,7 @@ const Register = styled(Link)`
     margin-left: 10px;
     margin-right: 10px;
     text-decoration: none;
-    color: #ffffff;
+    color: #000000;
     font-family: Lexend Deca;
     font-size: 16px;
     font-style: normal;
@@ -164,7 +154,7 @@ const Sale = styled(Link)`
     display: flex;
     margin-right: 13px;
     text-decoration: none;
-    color: #ffffff;
+    color: #000000;
     font-family: Lexend Deca;
     font-size: 16px;
     font-style: normal;
@@ -179,7 +169,7 @@ const Exit = styled(Link)`
     margin-left: 10px;
     margin-right: 0px;
     text-decoration: none;
-    color: #ffffff;
+    color: #000000;
     font-family: Lexend Deca;
     font-size: 16px;
     font-style: normal;
@@ -191,35 +181,28 @@ const Categories = styled.div`
      width: 100%;
      display: flex;
      margin-top: 30px;
-    // background-color: #e92121;
      justify-content: space-between;
      color: black;
 `
 const Affairs = styled(Link)`
     margin-left: 20px;
     color: black;
-
 `
 const Adventure = styled(Link)`
     color: black;
-
 `
 const Bibliography = styled(Link)`
     color: black;
-
 `
 const ScienceFiction = styled(Link)`
     color: black;
-
 `
 const Thriller = styled(Link)`
     color: black;
-
 `
 const Others = styled(Link)`
     margin-right: 20px;
     color: black;
-
 `
 const SingInContainer = styled.section`
     flex: 1; 
@@ -234,7 +217,7 @@ const SingInContainer = styled.section`
 const Unit = styled(Link)`
     width: 250px;
     height: auto; 
-    background-color: wheat;
+    background-color: #ffffff;
     border-radius: 20px;
     display: flex;
     flex-direction: column;
