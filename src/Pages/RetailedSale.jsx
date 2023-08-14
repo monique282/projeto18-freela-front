@@ -4,6 +4,8 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import { AuthContext } from "./Contex";
+
+
 export default function Home() {
 
     const { name, token } = useContext(AuthContext);

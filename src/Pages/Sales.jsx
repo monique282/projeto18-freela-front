@@ -1,34 +1,40 @@
 import styled from "styled-components";
-import { closeCircleOutline } from 'ionicons/icons';
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import { AuthContext } from "./Contex";
+import { trashOutline } from 'ionicons/icons';
+import { pauseCircleOutline } from 'ionicons/icons';
+import { caretForwardCircleOutline } from 'ionicons/icons';
+
+<ion-icon name="caret-forward-circle-outline"></ion-icon>
 
 export default function Sale() {
 
-    const { name, token, setToken } = useContext(AuthContext);
+    const { name, token, setToken, setName } = useContext(AuthContext);
     const [disabled, setDisabled] = useState(false);
-    const [nameL, setName] = useState('');
+    const [nameL, setNameL] = useState('');
     const [description, setDescription] = useState('');
     const [prince, setPrince] = useState('');
     const [photos, setPhotos] = useState([{ value: '', disabled: false }]);
     const [addSaleForm, setAddSaleForm] = useState(false);
     const [list, setList] = useState([]);
-    //const { toke } = useParams(token)
-
     const navigate = useNavigate();
 
     // pegando o produto que foi o usuario que postou usando o token
     useEffect(() => {
-        const url = `${import.meta.env.VITE_API_URL}/product`
-        const promise = axios.get(url);
+
+        const url = `${import.meta.env.VITE_API_URL}/productUsers`
+        const promise = axios.get(url, {
+            headers: { authorization: `Bearer ${token}` }
+        })
         promise.then(response => {
+            console.log(response.data)
             setList(response.data)
         })
-            .catch(err => {
-                //alert(err.response.data);
-            });
+        promise.catch(err => {
+            // alert(err.response.data);
+        });
 
         // const urlUsers = `${import.meta.env.VITE_API_URL}/products/${}`
     }, []);
@@ -47,6 +53,7 @@ export default function Sale() {
             // apagar o local storage
             localStorage.clear();
             setToken('');
+            setName('')
             navigate("/");
         })
             .catch(resposta => {
@@ -150,13 +157,16 @@ export default function Sale() {
                     )}
                     {list.length > 0 && (
                         list.map(list => (
-                            <>
+                            <Box>
                                 <Unit key={list.id}>
                                     <img src={list.photo} alt="" />
-                                    <Title>Titulo do livro: {list.name}</Title>
-                                    <Price>Preço: R$ {(list.price / 100).toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</Price>
+                                    <Title>{list.name}</Title>
+                                    <Price>R$ {(list.price / 100).toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</Price>
                                 </Unit>
-                            </>
+                                <Stops> Apagar<ion-icon icon={trashOutline} style={{ color: '#000000', width: '100px', height: '100px', marginTop: '0px', marginRight: '5px', marginLeft: '0px' }} /></Stops>
+                                <Stop>Pausar Venda <ion-icon icon={pauseCircleOutline} style={{ color: '#000000', width: '100px', height: '100px', marginTop: '0px', marginRight: '5px', marginLeft: '0px' }} /></Stop>
+                                <Stop>Despausar Venda <ion-icon icon={caretForwardCircleOutline} style={{ color: '#000000', width: '100px', height: '100px', marginTop: '0px', marginRight: '5px', marginLeft: '0px' }} /></Stop>
+                            </Box>
                         ))
                     )}
                 </>
@@ -165,7 +175,7 @@ export default function Sale() {
                 <>
                     <RegisterSales>
                         <form onSubmit={register}>
-                            <Input placeholder="Nome do livro" type="text" required value={nameL} onChange={(e) => setName(e.target.value)} disabled={disabled} />
+                            <Input placeholder="Nome do livro" type="text" required value={nameL} onChange={(e) => setNameL(e.target.value)} disabled={disabled} />
                             <Input placeholder="Descrição do livro" type="text" required value={description} onChange={(e) => setDescription(e.target.value)} disabled={disabled} />
                             <Input placeholder="Preço" type="text" required value={prince} onChange={(e) => setPrince(e.target.value)} disabled={disabled} />
                             {photos.map((photo, index) => (
@@ -206,11 +216,15 @@ export default function Sale() {
                     <Upside>
                         {list.length > 0 && (
                             list.map(list => (
-                                <Unit key={list.id}>
-                                    <img src={list.photo} alt="" />
-                                    <Title>{list.name}</Title>
-                                    <Price>R$ {(list.price / 100).toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</Price>
-                                </Unit>
+                                <>
+                                    <Unit key={list.id}>
+                                        <img src={list.photo} alt="" />
+                                        <Title>{list.name}</Title>
+                                        <Price>R$ {(list.price / 100).toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</Price>
+                                    </Unit>
+                                    <>{closeCircleOutline}</>
+                                    <></>
+                                </>
                             ))
                         )}
                     </Upside>
@@ -226,20 +240,35 @@ export default function Sale() {
     )
 };
 
-const NitNotToke = styled.div`
-    width: 800px;
+const Stops = styled.div`
+    margin-top: 30px;
+    width: 150px;
     height: 100px;
-    border-radius: 10px;
-    margin-top: 25px;
-    border-radius: 12px;
-    background-color: #ffffff;
-    font-size: 30px;
     display: flex;
+    color: black ; 
+    flex-direction: column;
     justify-content: center;
     align-items: center;
-    padding: 20px;
+    text-align: center;
+    margin-right: -20px;
 `
 
+const Stop = styled.div`
+    margin-top: 30px;
+    width: 150px;
+    height: 100px;
+    display: flex;
+    color: black ; 
+    //background-color: red;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    margin-left: 10px;
+`
+const Box = styled.div`
+    display: flex;
+`
 const UnitNotToken = styled.div`
     width: 800px;
     height: 100px;
