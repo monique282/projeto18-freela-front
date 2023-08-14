@@ -306,6 +306,7 @@ const Stops = styled.div`
     margin-right: -10px;
     background-color: #ffffff;
     border-radius: 12px;
+    margin-left: 10px;
 `
 
 const Stop = styled.div`
