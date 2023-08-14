@@ -6,6 +6,7 @@ import { AuthContext } from "./Contex";
 import { trashOutline } from 'ionicons/icons';
 import { pauseCircleOutline } from 'ionicons/icons';
 import { caretForwardCircleOutline } from 'ionicons/icons';
+import { ThreeDots } from "react-loader-spinner";
 
 <ion-icon name="caret-forward-circle-outline"></ion-icon>
 
@@ -16,7 +17,7 @@ export default function Sale() {
     const [nameL, setNameL] = useState('');
     const [description, setDescription] = useState('');
     const [prince, setPrince] = useState('');
-    const [photos, setPhotos] = useState([{ value: '', disabled: false }]);
+    const [photos, setPhotos] = useState('');
     const [addSaleForm, setAddSaleForm] = useState(false);
     const [list, setList] = useState([]);
     const [atualization, setAtualization] = useState(false);
@@ -67,17 +68,15 @@ export default function Sale() {
     function register(e) {
         e.preventDefault();
 
-        // se as senhas estão iguais ou nao 
-        if (password !== confirmPassword) {
-            return alert("Senhas informadas estão divergentes!");
-        };
-
-
         //para quando tiver o deploy 
         const url = `${import.meta.env.VITE_API_URL}/registeProduct`
 
+        const confi = {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        };
         // dados a ser enviados para o back
-        console.log(password);
         const data = {
             name: nameL,
             description: description,
@@ -85,15 +84,17 @@ export default function Sale() {
             category: category,
             photo: photos
         };
-
-        const promise = axios.post(url, data)
+        console.log(category)
+        console.log(photos)
+        const promise = axios.post(url, data, confi)
         setDisabled(true);
         promise.then(() => {
             setAddSaleForm(false)
             alert("Produto adicionada para venda")
+            setAtualization(true)
         });
         promise.catch(response => {
-            alert(response.response.data.message);
+            alert(response.response.data);
             setDisabled(false);
         });
     };
@@ -236,15 +237,13 @@ export default function Sale() {
                                 <Catego onClick={() => setCategory("thriller")}>Suspense</Catego>
                                 <Catego onClick={() => setCategory("others")}>Outros</Catego>
                             </ArrangingCategories>
-                            {photos.map((photo, index) => (
-                                <Photo key={index}>
                                     <InputPhoto
                                         placeholder="Foto"
                                         type="text"
                                         required
-                                        value={photo.value}
-                                        onChange={(e) => photoChange(index, e.target.value)}
-                                        disabled={photo.disabled} />
+                                        value={photos}
+                                        onChange={(e) => setPhotos(e.target.value)}
+                                        disabled={disabled} />
                                     {/* {index >= 0 && (
                                         <AddPhoto type="button" onClick={() => RemoveInputPhoto(index)}>
                                             -
@@ -253,9 +252,6 @@ export default function Sale() {
                                     <AddPhoto type="button" onClick={AddInputPhoto}>
                                         +
                                     </AddPhoto> */}
-                                </Photo>
-                            ))}
-
                             <AddSale type="submit" disabled={disabled}>
                                 {disabled ? (
                                     <ThreeDots width={32} height={21} border-radius={4.5} background-color="#d540e9" color="#FFFFFF" font-size={9} />
@@ -308,7 +304,7 @@ export default function Sale() {
     )
 };
 
-const Catego = styled.button`
+const Catego = styled.div`
     margin-left: 10px;
     margin-top: 11px;
     width: 120px;
