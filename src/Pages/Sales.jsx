@@ -14,23 +14,23 @@ export default function Sale() {
     const [prince, setPrince] = useState('');
     const [photos, setPhotos] = useState([{ value: '', disabled: false }]);
     const [addSaleForm, setAddSaleForm] = useState(false);
+    const [list, setList] = useState([]);
+    //const { toke } = useParams(token)
 
     const navigate = useNavigate();
 
-    // pegando o produto pelo id
+    // pegando o produto que foi o usuario que postou usando o token
     useEffect(() => {
-        // const url = `${import.meta.env.VITE_API_URL}/products/${id}`
+        const url = `${import.meta.env.VITE_API_URL}/products`
+        const promise = axios.get(url);
+        promise.then(response => {
+            setList(response.data)
+        })
+            .catch(err => {
+                alert(err.response.data);
+            });
 
-        // const promise = axios.get(url);
-        // promise.then(response => {
-        //     console.log(response.data)
-        //     setList(response.data)
-        // })
-        //     .catch(err => {
-        //         alert(err.response.data);
-        //     });
-
-        // const urlUsers = `${import.meta.env.VITE_API_URL}/products/${id}`
+        // const urlUsers = `${import.meta.env.VITE_API_URL}/products/${}`
     }, []);
 
     // essa parte vai deslogar a pessoa
@@ -114,7 +114,7 @@ export default function Sale() {
                 <Welcome>Seja bem-vindo(a) {name}!</Welcome>
                 {!token && (
                     <SaleExit>
-                        <Sales to={'/sales'} >Seus produtos</Sales>
+                         <Sales to={'/'} >Home</Sales>
                         <Login_Register to={'/signin'} >Entrar/Cadastra-se</Login_Register>
                     </SaleExit>
                 )}
@@ -132,55 +132,118 @@ export default function Sale() {
                 <Thriller onClick={() => Filtering('thriller')} >Suspense</Thriller>
                 <Others onClick={() => Filtering('others')}>Outros</Others>
             </Categories>
-            <AddSales type="button" onClick={() => setAddSaleForm(true)}>
-                Adicionar Venda
-            </AddSales>
-            {addSaleForm && token && (
-                <RegisterSales>
-                    <form onSubmit={register}>
-                        <Input placeholder="Nome do livro" type="text" required value={nameL} onChange={(e) => setName(e.target.value)} disabled={disabled} />
-                        <Input placeholder="Descrição do livro" type="text" required value={description} onChange={(e) => setDescription(e.target.value)} disabled={disabled} />
-                        <Input placeholder="Preço" type="text" required value={prince} onChange={(e) => setPrince(e.target.value)} disabled={disabled} />
-                        {photos.map((photo, index) => (
-                            <Photo key={index}>
-                                <InputPhoto
-                                    placeholder="Foto"
-                                    type="text"
-                                    required
-                                    value={photo.value}
-                                    onChange={(e) => photoChange(index, e.target.value)}
-                                    disabled={photo.disabled} />
-                                {index >= 0 && (
-                                    <AddPhoto type="button" onClick={() => RemoveInputPhoto(index)}>
-                                        -
-                                    </AddPhoto>
-                                )}
-                                <AddPhoto type="button" onClick={AddInputPhoto}>
-                                    +
-                                </AddPhoto>
-                            </Photo>
-                        ))}
-                        <AddSale type="submit" disabled={disabled}>
-                            {disabled ? (
-                                <ThreeDots width={32} height={21} border-radius={4.5} background-color="#d540e9" color="#FFFFFF" font-size={9} />
-                            ) : (
-                                <p>Criar venda</p>
-                            )}
-                        </AddSale>
-                    </form>
-                </RegisterSales>
+            <RightSide>
+                <AddSales type="button" onClick={() => setAddSaleForm(true)}>
+                    Adicionar Venda
+                </AddSales>
+            </RightSide>
+
+
+            {!addSaleForm && token && (
+                <>
+                    {list.length === 0 && (
+                        <Unit >
+                            Você não tem nenhum produto cadastrado para venda.
+                        </Unit>
+                    )}
+                    {list.length > 0 && (
+                        list.map(list => (
+                            <>
+                                <Unit key={list.id}>
+                                    <img src={list.photo} alt="" />
+                                    <Title>Titulo do livro: {list.name}</Title>
+                                    <Price>Preço: R$ {(list.price / 100).toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</Price>
+                                </Unit>
+                            </>
+                        ))
+                    )}
+                </>
             )}
+            {addSaleForm && token && (
+                <>
+                    <RegisterSales>
+                        <form onSubmit={register}>
+                            <Input placeholder="Nome do livro" type="text" required value={nameL} onChange={(e) => setName(e.target.value)} disabled={disabled} />
+                            <Input placeholder="Descrição do livro" type="text" required value={description} onChange={(e) => setDescription(e.target.value)} disabled={disabled} />
+                            <Input placeholder="Preço" type="text" required value={prince} onChange={(e) => setPrince(e.target.value)} disabled={disabled} />
+                            {photos.map((photo, index) => (
+                                <Photo key={index}>
+                                    <InputPhoto
+                                        placeholder="Foto"
+                                        type="text"
+                                        required
+                                        value={photo.value}
+                                        onChange={(e) => photoChange(index, e.target.value)}
+                                        disabled={photo.disabled} />
+                                    {index >= 0 && (
+                                        <AddPhoto type="button" onClick={() => RemoveInputPhoto(index)}>
+                                            -
+                                        </AddPhoto>
+                                    )}
+                                    <AddPhoto type="button" onClick={AddInputPhoto}>
+                                        +
+                                    </AddPhoto>
+                                </Photo>
+                            ))}
+                            <AddSale type="submit" disabled={disabled}>
+                                {disabled ? (
+                                    <ThreeDots width={32} height={21} border-radius={4.5} background-color="#d540e9" color="#FFFFFF" font-size={9} />
+                                ) : (
+                                    <p>Criar venda</p>
+                                )}
+                            </AddSale>
+                        </form>
+                    </RegisterSales>
+                    {list.length === 0 && (
+                        <UnitNotToken >
+                            Você não tem nenhum produto cadastrado para venda.
+                        </UnitNotToken>
+                    )}
+                    <Upside>
+                        {list.length > 0 && (
+                            list.map(list => (
+
+                                <Unit key={list.id}>
+                                    <img src={list.photo} alt="" />
+                                    <Title>{list.name}</Title>
+                                    <Price>R$ {(list.price / 100).toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</Price>
+                                </Unit>
+                            ))
+                        )}
+                    </Upside>
+                </>)}
             {!token && (
                 <SingInContainer>
-                    <Unit >
+                    <UnitNotToken >
                         Você precisa fazer login para ter acesso a essa pagina, obrigado(a)!
-                    </Unit>
+                    </UnitNotToken>
                 </SingInContainer>
             )}
         </Total >
     )
 };
 
+const UnitNotToken = styled.div`
+    width: 800px;
+    height: 100px;
+    border-radius: 10px;
+    margin-top: 25px;
+    border-radius: 12px;
+    background-color: #ffffff;
+    font-size: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+`
+const Upside = styled.div`
+    margin-top: -200px;
+`
+const RightSide = styled.div`
+    display: flex;
+    justify-content: flex-end;
+    margin-right: 30px;
+`
 const Photo = styled.div`
     display: flex;
 `
@@ -195,7 +258,6 @@ const AddSales = styled.button`
     box-shadow: 0px 4px 24px 0px rgb(230, 68, 225);
     background-color: #d540e9;
 `
-
 const AddSale = styled.button`
     color: #ffffff;
     width: 769px;
@@ -207,7 +269,6 @@ const AddSale = styled.button`
     box-shadow: 0px 4px 24px 0px rgb(230, 68, 225);
     background-color: #d540e9;
 `
-
 const AddPhoto = styled.button`
     width: 69px;
     height: 60px;
@@ -225,7 +286,6 @@ const AddPhoto = styled.button`
     align-items: center;
     justify-content: center;
 `
-
 const Total = styled.div`
     min-height: 100vh; 
     background: linear-gradient(to bottom, #bd4470, #5dc1a3);
@@ -295,7 +355,7 @@ const Exit = styled(Link)`
     width: 90px;
     height: 22px;
     display: flex;
-    margin-left: 10px;
+    margin-left: -30px;
     margin-right: 0px;
     text-decoration: none;
     color: #ffffff;
@@ -347,16 +407,18 @@ const SingInContainer = styled.section`
     box-sizing: border-box;
     overflow: auto; 
 `
-const Unit = styled(Link)`
-    width: 800px;
+const Unit = styled.div`
+    width: 400px;
     height: auto; 
-    background-color: wheat;
+    background-color: #ffffff;
     border-radius: 20px;
     display: flex;
+    align-items: center;
     margin: 20px;
+    margin-top: 0px;
     
     img{
-        width: 230px;
+        width: 100px;
         border-radius: 20px;
         background-color: black;
         margin-top: 7px;
@@ -403,4 +465,35 @@ const InputPhoto = styled.input`
     padding: 15px;
     font-size: 15px;
     margin-left: 0px;
+`
+const Price = styled.div`
+    width: 500px;
+    height: 50px;
+    //background-color: #bd4470;
+    border-radius: 10px;
+    font-family: Lexend Deca;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    color: black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 7px;
+    margin-top: 20px;
+`
+const Title = styled.div`
+    width: 500px;
+    height: 20px;
+    font-family: Lexend Deca;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    color: #bd4470;
+    display: flex;
+    align-items: center;
+    margin-top: 17px;
+    margin-left: 10px;
 `

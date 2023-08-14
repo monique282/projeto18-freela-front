@@ -37,14 +37,6 @@ export default function Home() {
                     <Exit>Sair</Exit>
                 </SaleExit>
             </Above>
-            <Categories>
-                <Affairs>Romances</Affairs>
-                <Adventure>Aventura</Adventure>
-                <Bibliography>Bibliografia</Bibliography>
-                <ScienceFiction> Ficção Científica </ScienceFiction>
-                <Thriller>Suspense</Thriller>
-                <Others>Outros</Others>
-            </Categories>
             <SingInContainer>
                 {list.map(list => (
                     <Unit key={list.id}>
