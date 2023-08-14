@@ -20,6 +20,7 @@ export default function Sale() {
     const [addSaleForm, setAddSaleForm] = useState(false);
     const [list, setList] = useState([]);
     const [atualization, setAtualization] = useState(false);
+    const [category, setCategory] = useState('')
 
     const navigate = useNavigate();
 
@@ -64,35 +65,37 @@ export default function Sale() {
     };
 
     function register(e) {
-        // e.preventDefault();
+        e.preventDefault();
 
-        // // se as senhas estão iguais ou nao 
-        // if (password !== confirmPassword) {
-        //     return alert("Senhas informadas estão divergentes!");
-        // };
+        // se as senhas estão iguais ou nao 
+        if (password !== confirmPassword) {
+            return alert("Senhas informadas estão divergentes!");
+        };
 
-        // const url = `http://localhost:5000/signup`;
-        // //para quando tiver o deploy 
-        // // const url = `${import.meta.env.VITE_API_URL}/signup`
 
-        // // dados a ser enviados para o back
-        // console.log(password);
-        // const data = {
-        //     name: name,
-        //     email: email,
-        //     cpf: cpf,
-        //     phone: phone,
-        //     password: password,
-        //     confirmPassword: confirmPassword
-        // };
+        //para quando tiver o deploy 
+        const url = `${import.meta.env.VITE_API_URL}/registeProduct`
 
-        // const promise = axios.post(url, data)
-        // setDisabled(true);
-        // promise.then(() => setAddSaleForm(false));
-        // promise.catch(response => {
-        //     alert(response.response.data.message);
-        //     setDisabled(false);
-        // });
+        // dados a ser enviados para o back
+        console.log(password);
+        const data = {
+            name: nameL,
+            description: description,
+            price: prince,
+            category: category,
+            photo: photos
+        };
+
+        const promise = axios.post(url, data)
+        setDisabled(true);
+        promise.then(() => {
+            setAddSaleForm(false)
+            alert("Produto adicionada para venda")
+        });
+        promise.catch(response => {
+            alert(response.response.data.message);
+            setDisabled(false);
+        });
     };
 
     function photoChange(index, value) {
@@ -174,7 +177,7 @@ export default function Sale() {
                 <Affairs onClick={() => Filtering('affairs')} >Romances</Affairs>
                 <Adventure onClick={() => Filtering('adventure')} >Aventura</Adventure>
                 <Bibliography onClick={() => Filtering('bibliography')} >Bibliografia</Bibliography>
-                <ScienceFiction onClick={() => Filtering('scienceFiction')} > Ficção Científica </ScienceFiction>
+                <ScienceFiction onClick={() => Filtering('sciencebibliographyFiction')} > Ficção Científica </ScienceFiction>
                 <Thriller onClick={() => Filtering('thriller')} >Suspense</Thriller>
                 <Others onClick={() => Filtering('others')}>Outros</Others>
             </Categories>
@@ -225,6 +228,14 @@ export default function Sale() {
                             <Input placeholder="Nome do livro" type="text" required value={nameL} onChange={(e) => setNameL(e.target.value)} disabled={disabled} />
                             <Input placeholder="Descrição do livro" type="text" required value={description} onChange={(e) => setDescription(e.target.value)} disabled={disabled} />
                             <Input placeholder="Preço" type="text" required value={prince} onChange={(e) => setPrince(e.target.value)} disabled={disabled} />
+                            <ArrangingCategories>
+                                <Catego onClick={() => setCategory("affairs")}>Romance</Catego>
+                                <Catego onClick={() => setCategory("adventure")}>Aventura</Catego>
+                                <Catego onClick={() => setCategory("bibliography")}>Bibliografia</Catego>
+                                <Catego onClick={() => setCategory("sciencebibliographyFiction")}>Ficção Científica</Catego>
+                                <Catego onClick={() => setCategory("thriller")}>Suspense</Catego>
+                                <Catego onClick={() => setCategory("others")}>Outros</Catego>
+                            </ArrangingCategories>
                             {photos.map((photo, index) => (
                                 <Photo key={index}>
                                     <InputPhoto
@@ -234,16 +245,17 @@ export default function Sale() {
                                         value={photo.value}
                                         onChange={(e) => photoChange(index, e.target.value)}
                                         disabled={photo.disabled} />
-                                    {index >= 0 && (
+                                    {/* {index >= 0 && (
                                         <AddPhoto type="button" onClick={() => RemoveInputPhoto(index)}>
                                             -
                                         </AddPhoto>
                                     )}
                                     <AddPhoto type="button" onClick={AddInputPhoto}>
                                         +
-                                    </AddPhoto>
+                                    </AddPhoto> */}
                                 </Photo>
                             ))}
+
                             <AddSale type="submit" disabled={disabled}>
                                 {disabled ? (
                                     <ThreeDots width={32} height={21} border-radius={4.5} background-color="#d540e9" color="#FFFFFF" font-size={9} />
@@ -296,6 +308,24 @@ export default function Sale() {
     )
 };
 
+const Catego = styled.button`
+    margin-left: 10px;
+    margin-top: 11px;
+    width: 120px;
+    height: auto; 
+    text-align: center;
+    font-size: 15px;
+    border: 1px solid rgba(216, 47, 232, 0.916);
+    background: #FFF;
+    box-shadow: 0px 4px 10px 0px rgba(216, 47, 232, 0.916);
+`
+const ArrangingCategories = styled.div`
+    display: flex;
+    width: 800px;
+    //background-color: red;
+    margin-left: 10px;
+    
+`
 const Stops = styled.div`
     margin-top: 30px;
     width: 150px;
@@ -556,7 +586,7 @@ const Input = styled.input`
     font-size: 15px;
 `
 const InputPhoto = styled.input`
-    width: 600px;
+    width: 769px;
     height: 60px;
     margin-top: 10px;
     border-radius: 12px;

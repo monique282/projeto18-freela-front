@@ -90,7 +90,6 @@ export default function Home() {
                         <Title>{item.name}</Title>
                         <Category>{item.category}</Category>
                         <Price>R$ {(item.price / 100).toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
-                        
                         </Price>
                         <Block>Para mais informações</Block>
                     </Unit>
