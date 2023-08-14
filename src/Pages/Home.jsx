@@ -83,13 +83,12 @@ export default function Home() {
                 <Others onClick={() => Filtering('others')}>Outros</Others>
             </Categories>
             <SingInContainer>
-
-                {list.map(list => (
-                    <Unit to={`/detailed/${list.id}`} key={list.id}>
-                        <img src={list.photo} alt="" />
-                        <Title>{list.name}</Title>
-                        <Category>{list.category}</Category>
-                        <Price>R$ {(list.price / 100).toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</Price>
+                {list.filter(item => item.status).map(item => (
+                    <Unit to={`/detailed/${item.id}`} key={item.id}>
+                        <img src={item.photo} alt="" />
+                        <Title>{item.name}</Title>
+                        <Category>{item.category}</Category>
+                        <Price>R$ {(item.price / 100).toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</Price>
                     </Unit>
                 ))}
             </SingInContainer>

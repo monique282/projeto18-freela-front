@@ -49,10 +49,10 @@ export default function Home() {
                             <DescripionInf>Descrição do livro</DescripionInf>
                             <Descripion>{list.description} </Descripion>
                             <SellerName>Nome do vendedor: {list.users.name}</SellerName>
-                            <Contact>Para comprar entre em contato com vendedor: {list.users.phone}</Contact>
+                            <Contact>Para comprar entre em contato com vendedor no telefone: {list.users.phone}</Contact>
                             <Price> Comprar por apenas R$ {(list.price / 100).toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</Price>
                         </Information>
-                        <Link to={'/'}><ion-icon icon={closeCircleOutline} style={{ color: '#bd4470', width: '50px', height: '50px', marginTop: '0px', marginRight: '5px', marginLeft: '-16px' }} /></Link>
+                        <Link to={'/'}><ion-icon icon={closeCircleOutline} style={{ color: '#000000', width: '50px', height: '50px', marginTop: '0px', marginRight: '5px', marginLeft: '-16px' }} /></Link>
 
                     </Unit>
                 ))}
@@ -104,7 +104,7 @@ const Login_Register = styled(Link)`
     margin-left: -30px;
     margin-right: 10px;
     text-decoration: none;
-    color: #000000;
+    color: #ffffff;
     font-family: Lexend Deca;
     font-size: 16px;
     font-style: normal;
