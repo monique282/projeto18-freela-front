@@ -303,6 +303,7 @@ const Stops = styled.div`
     align-items: center;
     text-align: center;
     margin-right: -20px;
+    background-color: #ffffff;
 `
 
 const Stop = styled.div`

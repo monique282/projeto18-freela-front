@@ -52,7 +52,7 @@ export default function Home() {
                             <Contact>Para comprar entre em contato com vendedor no telefone: {list.users.phone}</Contact>
                             <Price> Comprar por apenas R$ {(list.price / 100).toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</Price>
                         </Information>
-                        <ion-icon icon={closeCircleOutline} style={{ color: '#000000', width: '50px', height: '50px', marginTop: '0px', marginRight: '5px', marginLeft: '-16px' }} />
+                        <ion-icon name={closeCircleOutline} style={{ color: '#000000', width: '50px', height: '50px', marginTop: '0px', marginRight: '5px', marginLeft: '-16px' }} />
 
                     </Unit>
                 ))}
