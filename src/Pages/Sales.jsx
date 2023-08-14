@@ -303,7 +303,7 @@ const Stops = styled.div`
     justify-content: center;
     align-items: center;
     text-align: center;
-    margin-right: -20px;
+    margin-right: -10px;
     background-color: #ffffff;
     border-radius: 12px;
 `
