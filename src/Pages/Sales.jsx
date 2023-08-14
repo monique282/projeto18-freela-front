@@ -19,6 +19,8 @@ export default function Sale() {
     const [photos, setPhotos] = useState([{ value: '', disabled: false }]);
     const [addSaleForm, setAddSaleForm] = useState(false);
     const [list, setList] = useState([]);
+    const [atualization, setAtualization] = useState(false);
+
     const navigate = useNavigate();
 
     // pegando o produto que foi o usuario que postou usando o token
@@ -35,9 +37,9 @@ export default function Sale() {
         promise.catch(err => {
             // alert(err.response.data);
         });
-
+        setAtualization(false)
         // const urlUsers = `${import.meta.env.VITE_API_URL}/products/${}`
-    }, []);
+    }, [atualization]);
 
     // essa parte vai deslogar a pessoa
     function Logout() {
@@ -115,6 +117,43 @@ export default function Sale() {
         setPhotos(updatedPhotos);
     };
 
+    // atualização do status para false ou true
+    function UpdateBreak(id) {
+        const url = `${import.meta.env.VITE_API_URL}/productBreak/${id}`
+        const promise = axios.get(url)
+        promise.then(response => {
+            alert(" Venda pausada");
+            setAtualization(true);
+        })
+        promise.catch(err => {
+            // alert(err.response.data);
+        });
+    }
+
+    function UpdateUnpause(id) {
+        const url = `${import.meta.env.VITE_API_URL}/productUnpause/${id}`
+        const promise = axios.get(url)
+        promise.then(response => {
+            alert("Venda despausada");
+            setAtualization(true);
+        })
+        promise.catch(err => {
+            // alert(err.response.data);
+        });
+    }
+
+    function Delete(id) {
+        const url = `${import.meta.env.VITE_API_URL}/productDelete/${id}`
+        const promise = axios.delete(url)
+        promise.then(response => {
+            alert("Produto deletado");
+            setAtualization(true);
+        })
+        promise.catch(err => {
+            // alert(err.response.data);
+        });
+    }
+
     return (
         <Total>
             <Above>
@@ -162,10 +201,18 @@ export default function Sale() {
                                     <img src={list.photo} alt="" />
                                     <Title>{list.name}</Title>
                                     <Price>R$ {(list.price / 100).toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</Price>
+                                    <Title>
+                                        {list.status === true && (
+                                            <TitleVend>Venda ativa</TitleVend>
+                                        )}
+                                        {list.status === false && (
+                                            <TitlePause>Venda pausada</TitlePause>
+                                        )}
+                                    </Title>
                                 </Unit>
-                                <Stops> Apagar<ion-icon icon={trashOutline} style={{ color: '#000000', width: '100px', height: '100px', marginTop: '0px', marginRight: '5px', marginLeft: '0px' }} /></Stops>
-                                <Stop>Pausar Venda <ion-icon icon={pauseCircleOutline} style={{ color: '#000000', width: '100px', height: '100px', marginTop: '0px', marginRight: '5px', marginLeft: '0px' }} /></Stop>
-                                <Stop>Despausar Venda <ion-icon icon={caretForwardCircleOutline} style={{ color: '#000000', width: '100px', height: '100px', marginTop: '0px', marginRight: '5px', marginLeft: '0px' }} /></Stop>
+                                <Stops onClick={() => { Delete(list.id) }}> Apagar<ion-icon icon={trashOutline} style={{ color: '#000000', width: '100px', height: '100px', marginTop: '0px', marginRight: '5px', marginLeft: '0px' }} /></Stops>
+                                <Stop onClick={() => { UpdateBreak(list.id) }}>Pausar Venda <ion-icon icon={pauseCircleOutline} style={{ color: '#000000', width: '100px', height: '100px', marginTop: '0px', marginRight: '5px', marginLeft: '0px' }} /></Stop>
+                                <Stop onClick={() => { UpdateUnpause(list.id) }}>Despausar Venda <ion-icon icon={caretForwardCircleOutline} style={{ color: '#000000', width: '100px', height: '100px', marginTop: '0px', marginRight: '5px', marginLeft: '0px' }} /></Stop>
                             </Box>
                         ))
                     )}
@@ -216,15 +263,24 @@ export default function Sale() {
                     <Upside>
                         {list.length > 0 && (
                             list.map(list => (
-                                <>
+                                <Box>
                                     <Unit key={list.id}>
                                         <img src={list.photo} alt="" />
                                         <Title>{list.name}</Title>
                                         <Price>R$ {(list.price / 100).toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</Price>
+                                        <Title>
+                                            {list.status === true && (
+                                                <TitleVend>Venda ativa</TitleVend>
+                                            )}
+                                            {list.status === false && (
+                                                <TitlePause>Venda pausada</TitlePause>
+                                            )}
+                                        </Title>
                                     </Unit>
-                                    <>{closeCircleOutline}</>
-                                    <></>
-                                </>
+                                    <Stops onClick={() => Delete(list.id)}> Apagar<ion-icon icon={trashOutline} style={{ color: '#000000', width: '100px', height: '100px', marginTop: '0px', marginRight: '5px', marginLeft: '0px' }} /></Stops>
+                                    <Stop onClick={() => { UpdateBreak(list.id) }}>Pausar Venda <ion-icon icon={pauseCircleOutline} style={{ color: '#000000', width: '100px', height: '100px', marginTop: '0px', marginRight: '5px', marginLeft: '0px' }} /></Stop>
+                                    <Stop onClick={() => { UpdateUnpause(list.id) }}>Despausar Venda <ion-icon icon={caretForwardCircleOutline} style={{ color: '#000000', width: '100px', height: '100px', marginTop: '0px', marginRight: '5px', marginLeft: '0px' }} /></Stop>
+                                </Box>
                             ))
                         )}
                     </Upside>
@@ -542,4 +598,10 @@ const Title = styled.div`
     align-items: center;
     margin-top: 17px;
     margin-left: 10px;
+`
+const TitleVend = styled.p`
+    color: #4aee0a;
+`
+const TitlePause = styled.p`
+    color: #ee1d0a;
 `
