@@ -141,39 +141,6 @@ const Exit = styled(Link)`
     line-height: normal;
     margin-top: 17px;
 `
-const Categories = styled.div`
-    width: 100%;
-    display: flex;
-    margin-top: 30px;
-    justify-content: space-between;
-    color: black;
-`
-const Affairs = styled(Link)`
-    margin-left: 20px;
-    color: black;
-
-`
-const Adventure = styled(Link)`
-    color: black;
-
-`
-const Bibliography = styled(Link)`
-    color: black;
-
-`
-const ScienceFiction = styled(Link)`
-    color: black;
-
-`
-const Thriller = styled(Link)`
-    color: black;
-
-`
-const Others = styled(Link)`
-    margin-right: 20px;
-    color: black;
-
-`
 const SingInContainer = styled.section`
     flex: 1; 
     display: flex;

@@ -21,6 +21,7 @@ export default function Home() {
             .catch(err => {
                 alert(err.response.data);
             });
+            setAtualization(false)
     }, [atualization]);
 
     // essa parte vai deslogar a pessoa
@@ -36,14 +37,14 @@ export default function Home() {
         promise.then(resposta => {
             // apagar o local storage
             localStorage.clear();
-            setAtualization(true);
             setToken('');
             setName('')
+            setAtualization(true)
         })
             .catch(resposta => {
                 alert(resposta.response.data);
             });
-    }
+    };
 
     // serva para fazer a filtragem do que vai aparecer na tela por categoria
     function Filtering(param) {
@@ -88,7 +89,10 @@ export default function Home() {
                         <img src={item.photo} alt="" />
                         <Title>{item.name}</Title>
                         <Category>{item.category}</Category>
-                        <Price>R$ {(item.price / 100).toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</Price>
+                        <Price>R$ {(item.price / 100).toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                        
+                        </Price>
+                        <Block>Para mais informações</Block>
                     </Unit>
                 ))}
             </SingInContainer>
@@ -96,7 +100,16 @@ export default function Home() {
     )
 };
 
-
+const Block = styled.div`
+    width: 230px;
+    height: 45px;
+    font-size: 20px;
+    color: #ffffff;
+    padding: 12px;
+    background-color: #bd4470;
+    border-radius: 20px;
+    margin-bottom: 7px;
+`
 const Total = styled.div`
     min-height: 100vh; 
     background: linear-gradient(to bottom, #bd4470, #5dc1a3);
