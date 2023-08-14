@@ -193,9 +193,9 @@ export default function Sale() {
                                         )}
                                     </Title>
                                 </Unit>
-                                <Stops onClick={() => { Delete(list.id) }}> Apagar<ion-icon icon={trashOutline} style={{ color: '#000000', width: '100px', height: '100px', marginTop: '0px', marginRight: '5px', marginLeft: '0px' }} /></Stops>
-                                <Stop onClick={() => { UpdateBreak(list.id) }}>Pausar Venda <ion-icon icon={pauseCircleOutline} style={{ color: '#000000', width: '100px', height: '100px', marginTop: '0px', marginRight: '5px', marginLeft: '0px' }} /></Stop>
-                                <Stop onClick={() => { UpdateUnpause(list.id) }}>Despausar Venda <ion-icon icon={caretForwardCircleOutline} style={{ color: '#000000', width: '100px', height: '100px', marginTop: '0px', marginRight: '5px', marginLeft: '0px' }} /></Stop>
+                                <Stops onClick={() => { Delete(list.id) }}> Apagar</Stops>
+                                <Stop onClick={() => { UpdateBreak(list.id) }}>Pausar Venda </Stop>
+                                <Stop onClick={() => { UpdateUnpause(list.id) }}>Despausar Venda </Stop>
                             </Box>
                         ))
                     )}
