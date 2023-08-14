@@ -6,7 +6,7 @@ import { AuthContext } from "./Contex";
 
 export default function Home() {
 
-    const { name, token, setToken } = useContext(AuthContext);
+    const { name, token, setToken, setName } = useContext(AuthContext);
     const [list, setList] = useState([]);
     const [atualization, setAtualization] = useState(false);
     const navigate = useNavigate();
@@ -38,6 +38,7 @@ export default function Home() {
             localStorage.clear();
             setAtualization(true);
             setToken('');
+            setName('')
         })
             .catch(resposta => {
                 alert(resposta.response.data);

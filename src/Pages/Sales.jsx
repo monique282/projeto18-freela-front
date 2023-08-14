@@ -21,13 +21,13 @@ export default function Sale() {
 
     // pegando o produto que foi o usuario que postou usando o token
     useEffect(() => {
-        const url = `${import.meta.env.VITE_API_URL}/products`
+        const url = `${import.meta.env.VITE_API_URL}/product`
         const promise = axios.get(url);
         promise.then(response => {
             setList(response.data)
         })
             .catch(err => {
-                alert(err.response.data);
+                //alert(err.response.data);
             });
 
         // const urlUsers = `${import.meta.env.VITE_API_URL}/products/${}`
@@ -114,7 +114,7 @@ export default function Sale() {
                 <Welcome>Seja bem-vindo(a) {name}!</Welcome>
                 {!token && (
                     <SaleExit>
-                         <Sales to={'/'} >Home</Sales>
+                        <Sales to={'/'} >Home</Sales>
                         <Login_Register to={'/signin'} >Entrar/Cadastra-se</Login_Register>
                     </SaleExit>
                 )}
@@ -142,9 +142,11 @@ export default function Sale() {
             {!addSaleForm && token && (
                 <>
                     {list.length === 0 && (
-                        <Unit >
-                            Você não tem nenhum produto cadastrado para venda.
-                        </Unit>
+                        <SingInContainer>
+                            <UnitNotToken >
+                                Você não tem nenhum produto cadastrado para venda.
+                            </UnitNotToken>
+                        </SingInContainer>
                     )}
                     {list.length > 0 && (
                         list.map(list => (
@@ -195,14 +197,15 @@ export default function Sale() {
                         </form>
                     </RegisterSales>
                     {list.length === 0 && (
-                        <UnitNotToken >
-                            Você não tem nenhum produto cadastrado para venda.
-                        </UnitNotToken>
+                        <SingInContainer>
+                            <UnitNotToken>
+                                Você não tem nenhum produto cadastrado para venda.
+                            </UnitNotToken>
+                        </SingInContainer>
                     )}
                     <Upside>
                         {list.length > 0 && (
                             list.map(list => (
-
                                 <Unit key={list.id}>
                                     <img src={list.photo} alt="" />
                                     <Title>{list.name}</Title>
@@ -222,6 +225,20 @@ export default function Sale() {
         </Total >
     )
 };
+
+const NitNotToke = styled.div`
+    width: 800px;
+    height: 100px;
+    border-radius: 10px;
+    margin-top: 25px;
+    border-radius: 12px;
+    background-color: #ffffff;
+    font-size: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+`
 
 const UnitNotToken = styled.div`
     width: 800px;
@@ -329,7 +346,7 @@ const Login_Register = styled(Link)`
     margin-left: -30px;
     margin-right: 10px;
     text-decoration: none;
-    color: #000000;
+    color: #ffffff;
     font-family: Lexend Deca;
     font-size: 16px;
     font-style: normal;

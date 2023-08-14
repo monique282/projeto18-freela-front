@@ -26,14 +26,14 @@ export default function login() {
         const url = `${import.meta.env.VITE_API_URL}/signin`
         const promise = axios.post(url, data);
         setDisabled(true);
-        promise.then(response => { 
+        promise.then(response => {
             setToken(response.data.token);
             setName(response.data.name)
-            localStorage.setItem("token", response.data.token);   
+            localStorage.setItem("token", response.data.token);
             navigate("/");
         });
         promise.catch(err => {
-            alert(err.response.data);
+            alert(err.response.data.message);
             setDisabled(false);
         });
     }
@@ -41,6 +41,7 @@ export default function login() {
     return (
         <Total>
             <RegisteLogin>
+                <Sales to={'/'} >Home</Sales>
                 <Login to={'/signin'} >Entra</Login>
                 <Register to={'/signup'}>Cadastra-se</Register>
             </RegisteLogin>
@@ -77,11 +78,24 @@ const RegisteLogin = styled.div`
     margin-top: 60px;
     text-decoration: none;
 `
+const Sales = styled(Link)`
+    width: 80px;
+    height: 18px;
+    display: flex;
+    margin-left: 20px;
+    text-decoration: none;
+    color: #9C9C9C;
+    font-family: Lexend Deca;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+`
 const Login = styled(Link)`
     width: 80px;
     height: 18px;
     display: flex;
-    margin-left: 50px;
+    margin-left: 20px;
     text-decoration: none;
     color: #d540e9;
     font-family: Lexend Deca;

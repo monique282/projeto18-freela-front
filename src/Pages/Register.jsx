@@ -32,7 +32,6 @@ export default function Registe() {
         // const url = `${import.meta.env.VITE_API_URL}/signup`
 
         // dados a ser enviados para o back
-        console.log(password);
         const data = {
             name: name,
             email: email,
@@ -45,8 +44,8 @@ export default function Registe() {
         const promise = axios.post(url, data)
         setDisabled(true);
         promise.then(() => navigate('/signin'));
-        promise.catch(response => {
-            alert(response.response.data.message);
+        promise.catch(err => {
+            alert(err.response.data);
             setDisabled(false);
         });
 
@@ -54,8 +53,10 @@ export default function Registe() {
     return (
         <Total>
             <RegisteLogin>
+                <Sales to={'/'} >Home</Sales>
                 <Login to={'/signin'} >Entra</Login>
                 <Register to={'/signup'}>Cadastra-se</Register>
+
             </RegisteLogin>
             <Slogan>
                 <img src={slogan} />
@@ -95,11 +96,24 @@ const RegisteLogin = styled.div`
     margin-top: 60px;
     text-decoration: none;
 `
+const Sales = styled(Link)`
+    width: 80px;
+    height: 18px;
+    display: flex;
+    margin-left: 20px;
+    text-decoration: none;
+    color: #9C9C9C;
+    font-family: Lexend Deca;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+`
 const Login = styled(Link)`
     width: 80px;
     height: 18px;
     display: flex;
-    margin-left: 50px;
+    margin-left: 20px;
     text-decoration: none;
     color: #9C9C9C;
     font-family: Lexend Deca;
