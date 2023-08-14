@@ -2,10 +2,10 @@
 import styled from "styled-components";
 import slogan from "../assets/logo.png";
 import { Link, useNavigate } from "react-router-dom";
-import { useContext, useState } from "react";
+import { useState } from "react";
 import axios from "axios";
 import { ThreeDots } from "react-loader-spinner";
-import { AuthContext } from "./Contex";
+
 
 export default function Registe() {
 

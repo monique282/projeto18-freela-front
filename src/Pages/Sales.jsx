@@ -99,27 +99,6 @@ export default function Sale() {
         });
     };
 
-    function photoChange(index, value) {
-        const updatedPhotos = [...photos];
-        updatedPhotos[index].value = value;
-        setPhotos(updatedPhotos);
-    };
-
-    // adiciona o campo de input de foto
-    function AddInputPhoto() {
-        setPhotos([...photos, { value: '', disabled: false }]);
-    };
-
-    // remove o campo de input da foto
-    function RemoveInputPhoto(index) {
-        // verifique se tem pelo menos 1 campo de entrada de foto
-        if (photos.length === 1) {
-            alert("Pelo menos uma foto é necessária.");
-            return;
-        }
-        const updatedPhotos = photos.filter((_, i) => i !== index);
-        setPhotos(updatedPhotos);
-    };
 
     // atualização do status para false ou true
     function UpdateBreak(id) {
@@ -244,14 +223,6 @@ export default function Sale() {
                                         value={photos}
                                         onChange={(e) => setPhotos(e.target.value)}
                                         disabled={disabled} />
-                                    {/* {index >= 0 && (
-                                        <AddPhoto type="button" onClick={() => RemoveInputPhoto(index)}>
-                                            -
-                                        </AddPhoto>
-                                    )}
-                                    <AddPhoto type="button" onClick={AddInputPhoto}>
-                                        +
-                                    </AddPhoto> */}
                             <AddSale type="submit" disabled={disabled}>
                                 {disabled ? (
                                     <ThreeDots width={32} height={21} border-radius={4.5} background-color="#d540e9" color="#FFFFFF" font-size={9} />
@@ -308,7 +279,7 @@ const Catego = styled.div`
     margin-left: 10px;
     margin-top: 11px;
     width: 120px;
-    height: auto; 
+    height: 50px; 
     text-align: center;
     font-size: 15px;
     border: 1px solid rgba(216, 47, 232, 0.916);
@@ -318,7 +289,6 @@ const Catego = styled.div`
 const ArrangingCategories = styled.div`
     display: flex;
     width: 800px;
-    //background-color: red;
     margin-left: 10px;
     
 `
@@ -341,7 +311,6 @@ const Stop = styled.div`
     height: 100px;
     display: flex;
     color: black ; 
-    //background-color: red;
     flex-direction: column;
     justify-content: center;
     align-items: center;
@@ -597,7 +566,6 @@ const InputPhoto = styled.input`
 const Price = styled.div`
     width: 500px;
     height: 50px;
-    //background-color: #bd4470;
     border-radius: 10px;
     font-family: Lexend Deca;
     font-size: 18px;
