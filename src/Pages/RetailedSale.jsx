@@ -26,7 +26,6 @@ export default function Home() {
                 alert(err.response.data);
             });
 
-        const urlUsers = `${import.meta.env.VITE_API_URL}/products/${id}`
     }, []);
 
      // essa parte vai deslogar a pessoa
