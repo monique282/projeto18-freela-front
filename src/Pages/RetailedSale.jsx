@@ -9,7 +9,7 @@ import { AiFillCloseCircle } from 'react-icons/ai';
 
 export default function Home() {
 
-    const { name, token } = useContext(AuthContext);
+    const { name, token, setToken, setName } = useContext(AuthContext);
     const [list, setList] = useState([]);
     const { id } = useParams()
     const navigate = useNavigate();
@@ -28,8 +28,8 @@ export default function Home() {
 
     }, []);
 
-     // essa parte vai deslogar a pessoa
-     function Logout() {
+    // essa parte vai deslogar a pessoa
+    function Logout() {
 
         const url = `${import.meta.env.VITE_API_URL}/logout`
         const confi = {
