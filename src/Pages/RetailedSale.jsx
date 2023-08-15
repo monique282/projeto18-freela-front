@@ -4,6 +4,7 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import { AuthContext } from "./Contex";
+import { AiFillCloseCircle } from 'react-icons/ai';
 
 
 export default function Home() {
@@ -19,7 +20,6 @@ export default function Home() {
 
         const promise = axios.get(url);
         promise.then(response => {
-            console.log(response.data)
             setList(response.data)
         })
             .catch(err => {
@@ -29,15 +29,42 @@ export default function Home() {
         const urlUsers = `${import.meta.env.VITE_API_URL}/products/${id}`
     }, []);
 
+     // essa parte vai deslogar a pessoa
+     function Logout() {
+
+        const url = `${import.meta.env.VITE_API_URL}/logout`
+        const confi = {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        };
+        const promise = axios.delete(url, confi);
+        promise.then(resposta => {
+            // apagar o local storage
+            localStorage.clear();
+            setToken('');
+            setName('')
+            navigate("/");
+        })
+            .catch(resposta => {
+                alert(resposta.response.data);
+            });
+    };
+
     return (
         <Total>
             <Above>
                 <Welcome>Seja bem-vindo(a) {name}!</Welcome>
-                <SaleExit>
-                    <Sale to={'/sales'} >Seus produto</Sale>
-                    <Login_Register to={'/signin'} >Entrar/Cadastra-se</Login_Register>
-                    <Exit>Sair</Exit>
-                </SaleExit>
+                {!token && (
+                    <SaleExit>
+                        <Sales to={'/'} >Home</Sales>
+                        <Login_Register to={'/signin'} >Entrar/Cadastra-se</Login_Register>
+                    </SaleExit>
+                )}
+                {token && (<SaleExit>
+                    <Sales to={'/'} >Home</Sales>
+                    <Exit onClick={Logout} >Sair</Exit>
+                </SaleExit>)}
             </Above>
             <SingInContainer>
                 {list.map(list => (
@@ -52,8 +79,7 @@ export default function Home() {
                             <Contact>Para comprar entre em contato com vendedor no telefone: {list.users.phone}</Contact>
                             <Price> Comprar por apenas R$ {(list.price / 100).toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</Price>
                         </Information>
-                        <ion-icon name={closeCircleOutline} style={{ color: '#000000', width: '50px', height: '50px', marginTop: '0px', marginRight: '5px', marginLeft: '-16px' }} />
-
+                        <Link to={"/"}> <AiFillCloseCircle style={{ color: '#000000', fontSize: '50px', marginTop: '5px', marginRight: '5px', marginLeft: '-40px' }} /> </Link>
                     </Unit>
                 ))}
             </SingInContainer>
@@ -67,6 +93,20 @@ const Total = styled.div`
     display: flex;
     flex-direction: column; 
     overflow: hidden; 
+`
+const Sales = styled(Link)`
+    width: 140px;
+    height: 22px;
+    display: flex;
+    margin-right: 13px;
+    text-decoration: none;
+    color: #ffffff;
+    font-family: Lexend Deca;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    margin-top: 17px;
 `
 const Above = styled.div`
     width: 100%;

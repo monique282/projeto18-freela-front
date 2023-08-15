@@ -3,12 +3,11 @@ import { Link, useNavigate } from "react-router-dom";
 import { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import { AuthContext } from "./Contex";
-import { trashOutline } from 'ionicons/icons';
-import { pauseCircleOutline } from 'ionicons/icons';
-import { caretForwardCircleOutline } from 'ionicons/icons';
 import { ThreeDots } from "react-loader-spinner";
+import { ImBin } from 'react-icons/im';
+import { PiPauseFill } from 'react-icons/pi';
+import { AiFillCaretRight } from 'react-icons/ai';
 
-<ion-icon name="caret-forward-circle-outline"></ion-icon>
 
 export default function Sale() {
 
@@ -16,12 +15,13 @@ export default function Sale() {
     const [disabled, setDisabled] = useState(false);
     const [nameL, setNameL] = useState('');
     const [description, setDescription] = useState('');
-    const [prince, setPrince] = useState('');
+    const [price, setPrice] = useState('');
     const [photos, setPhotos] = useState('');
     const [addSaleForm, setAddSaleForm] = useState(false);
     const [list, setList] = useState([]);
     const [atualization, setAtualization] = useState(false);
-    const [category, setCategory] = useState('')
+    const [category, setCategory] = useState('');
+    const [activeCategory, setActiveCategory] = useState(null);
 
     const navigate = useNavigate();
 
@@ -33,14 +33,13 @@ export default function Sale() {
             headers: { authorization: `Bearer ${token}` }
         })
         promise.then(response => {
-            console.log(response.data)
             setList(response.data)
         })
         promise.catch(err => {
             // alert(err.response.data);
         });
         setAtualization(false)
-        // const urlUsers = `${import.meta.env.VITE_API_URL}/products/${}`
+
     }, [atualization]);
 
     // essa parte vai deslogar a pessoa
@@ -80,12 +79,10 @@ export default function Sale() {
         const data = {
             name: nameL,
             description: description,
-            price: prince,
+            price: price,
             category: category,
             photo: photos
         };
-        console.log(category)
-        console.log(photos)
         const promise = axios.post(url, data, confi)
         setDisabled(true);
         promise.then(() => {
@@ -98,7 +95,6 @@ export default function Sale() {
             setDisabled(false);
         });
     };
-
 
     // atualização do status para false ou true
     function UpdateBreak(id) {
@@ -113,6 +109,7 @@ export default function Sale() {
         });
     }
 
+    // função para pausar a publicação
     function UpdateUnpause(id) {
         const url = `${import.meta.env.VITE_API_URL}/productUnpause/${id}`
         const promise = axios.get(url)
@@ -125,6 +122,7 @@ export default function Sale() {
         });
     }
 
+    // função para deletar a publicação
     function Delete(id) {
         const url = `${import.meta.env.VITE_API_URL}/productDelete/${id}`
         const promise = axios.delete(url)
@@ -136,6 +134,25 @@ export default function Sale() {
             // alert(err.response.data);
         });
     }
+
+    // função para trocar a cor do butão 
+    const handleCategoryClick = (categor) => {
+        setActiveCategory(categor);
+        setCategory(categor)
+
+    };
+
+    // função para formatar o preço
+
+    function handleInputChange(e) {
+        const inputValue = e.target.value;
+
+        // Remover vírgulas e pontos do valor digitado
+        const cleanedValue = inputValue.replace(/[,\.]/g, '');
+
+        setPrice(cleanedValue);
+    };
+
 
     return (
         <Total>
@@ -193,9 +210,9 @@ export default function Sale() {
                                         )}
                                     </Title>
                                 </Unit>
-                                <Stops onClick={() => { Delete(list.id) }}> Apagar</Stops>
-                                <Stop onClick={() => { UpdateBreak(list.id) }}>Pausar Venda </Stop>
-                                <Stop onClick={() => { UpdateUnpause(list.id) }}>Despausar Venda </Stop>
+                                <Stops onClick={() => { Delete(list.id) }} > Apagar <ImBin style={{ color: '#000000', fontSize: '70px', marginTop: '3px' }} /> </Stops>
+                                <Stop onClick={() => { UpdateBreak(list.id) }}>Pausar Venda <PiPauseFill style={{ color: '#000000', fontSize: '70px', marginTop: '3px' }} /></Stop>
+                                <Stop onClick={() => { UpdateUnpause(list.id) }}>Despausar Venda <AiFillCaretRight style={{ color: '#000000', fontSize: '70px', marginTop: '3px' }} /></Stop>
                             </Box>
                         ))
                     )}
@@ -207,22 +224,28 @@ export default function Sale() {
                         <form onSubmit={register}>
                             <Input placeholder="Nome do livro" type="text" required value={nameL} onChange={(e) => setNameL(e.target.value)} disabled={disabled} />
                             <Input placeholder="Descrição do livro" type="text" required value={description} onChange={(e) => setDescription(e.target.value)} disabled={disabled} />
-                            <Input placeholder="Preço" type="text" required value={prince} onChange={(e) => setPrince(e.target.value)} disabled={disabled} />
-                            <ArrangingCategories>
-                                <Catego onClick={() => setCategory("affairs")}>Romance</Catego>
-                                <Catego onClick={() => setCategory("adventure")}>Aventura</Catego>
-                                <Catego onClick={() => setCategory("bibliography")}>Bibliografia</Catego>
-                                <Catego onClick={() => setCategory("sciencebibliographyFiction")}>Ficção Científica</Catego>
-                                <Catego onClick={() => setCategory("thriller")}>Suspense</Catego>
-                                <Catego onClick={() => setCategory("others")}>Outros</Catego>
+                            <Input
+                                placeholder="Preço"
+                                type="text"
+                                required
+                                value={price}
+                                onChange={handleInputChange}
+                                disabled={disabled}
+                            />                            <ArrangingCategories>
+                                <Catego onClick={() => handleCategoryClick('affairs')} active={activeCategory === 'affairs'} >Romance</Catego>
+                                <Catego onClick={() => handleCategoryClick('adventure')} active={activeCategory === 'adventure'}>Aventura</Catego>
+                                <Catego onClick={() => handleCategoryClick('bibliography')} active={activeCategory === 'bibliography'}>Bibliografia</Catego>
+                                <Catego onClick={() => handleCategoryClick('sciencebibliographyFiction')} active={activeCategory === 'sciencebibliographyFiction'}>Ficção Científica</Catego>
+                                <Catego onClick={() => handleCategoryClick('thriller')} active={activeCategory === 'thriller'} >Suspense</Catego>
+                                <Catego onClick={() => handleCategoryClick('others')} active={activeCategory === 'others'}>Outros</Catego>
                             </ArrangingCategories>
-                                    <InputPhoto
-                                        placeholder="Foto"
-                                        type="text"
-                                        required
-                                        value={photos}
-                                        onChange={(e) => setPhotos(e.target.value)}
-                                        disabled={disabled} />
+                            <InputPhoto
+                                placeholder="Foto"
+                                type="text"
+                                required
+                                value={photos}
+                                onChange={(e) => setPhotos(e.target.value)}
+                                disabled={disabled} />
                             <AddSale type="submit" disabled={disabled}>
                                 {disabled ? (
                                     <ThreeDots width={32} height={21} border-radius={4.5} background-color="#d540e9" color="#FFFFFF" font-size={9} />
@@ -256,9 +279,9 @@ export default function Sale() {
                                             )}
                                         </Title>
                                     </Unit>
-                                    <Stops onClick={() => Delete(list.id)}> Apagar</Stops>
-                                    <Stop onClick={() => { UpdateBreak(list.id) }}>Pausar Venda </Stop>
-                                    <Stop onClick={() => { UpdateUnpause(list.id) }}>Despausar Venda </Stop>
+                                    <Stops onClick={() => { Delete(list.id) }} > Apagar <ImBin style={{ color: '#000000', fontSize: '70px', marginTop: '3px' }} /> </Stops>
+                                    <Stop onClick={() => { UpdateBreak(list.id) }}>Pausar Venda <PiPauseFill style={{ color: '#000000', fontSize: '70px', marginTop: '3px' }} /></Stop>
+                                    <Stop onClick={() => { UpdateUnpause(list.id) }}>Despausar Venda <AiFillCaretRight style={{ color: '#000000', fontSize: '70px', marginTop: '3px' }} /></Stop>
                                 </Box>
                             ))
                         )}
@@ -282,10 +305,13 @@ const Catego = styled.div`
     height: 50px; 
     text-align: center;
     font-size: 15px;
+    background-color: ${({ active }) => (active ? '#d540e9' : '#ffffff')};
     border: 1px solid rgba(216, 47, 232, 0.916);
-    background: #FFF;
     box-shadow: 0px 4px 10px 0px rgba(216, 47, 232, 0.916);
-  
+    display: flex;
+    color: ${({ active }) => (active ? 'white' : 'black')};    justify-content: center;
+    align-items: center;
+    border-radius: 12px;
 `
 const ArrangingCategories = styled.div`
     display: flex;
@@ -304,7 +330,6 @@ const Stops = styled.div`
     align-items: center;
     text-align: center;
     margin-right: -10px;
-    background-color: #ffffff;
     border-radius: 12px;
     margin-left: 10px;
 `
@@ -320,11 +345,11 @@ const Stop = styled.div`
     align-items: center;
     text-align: center;
     margin-left: 10px;
-    background-color: #ffffff;
     border-radius: 12px;
 `
 const Box = styled.div`
     display: flex;
+    margin-top: 10px
 `
 const UnitNotToken = styled.div`
     width: 800px;
@@ -536,6 +561,7 @@ const RegisterSales = styled.section`
     flex-direction: column;
     align-items: center;
     margin-top: 50px;
+    margin-bottom: 100px;
     form{
         display: flex;
         flex-direction: column;
