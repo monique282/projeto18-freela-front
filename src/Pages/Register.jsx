@@ -27,9 +27,9 @@ export default function Registe() {
             return alert("Senhas informadas estão divergentes!");
         };
 
-        const url = `http://localhost:5000/signup`;
+
         //para quando tiver o deploy 
-        // const url = `${import.meta.env.VITE_API_URL}/signup`
+        const url = `${import.meta.env.VITE_API_URL}/signup`
 
         // dados a ser enviados para o back
         const data = {

@@ -10,7 +10,7 @@ export default function AuthProvider({ children }) {
     const navigate = useNavigate();
     const localiza = useLocation();
 
-    // usar um 
+    
     useEffect(() => {
         if (lsToken === null && localiza.pathname !== "/signup") {
             navigate("/");
